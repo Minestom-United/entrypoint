@@ -1,46 +1,19 @@
 plugins {
-    id("java")
-    alias(libs.plugins.shadow)
-    application
+    `java-library`
 }
 
-group = "club.tesseract.minestom"
+group = "dev.minestomunited.entrypoint"
 version = "1.0.0"
 
 repositories {
     mavenCentral()
-
-    // luckperms
-    maven("https://repo.hypera.dev/snapshots/")
-    maven("https://repo.tesseract.club/releases/")
-    maven("https://repo.lucko.me/") // spark-common
-    maven("https://oss.sonatype.org/content/repositories/snapshots/") // spark-common's dependencies
 }
 
 dependencies {
-    implementation(libs.minestom)
-    implementation(libs.minestom.utils)
-
-    implementation(libs.logback.classic)
-    implementation(libs.jansi)
+    api(libs.minestom)
 
     implementation(libs.lombok)
     annotationProcessor(libs.lombok)
-
-    /* Spark */
-    implementation(libs.minestom.spark){
-        exclude(group = "me.lucko", module = "bytesocks-java-client")
-    }
-    implementation(libs.bytesocks.java.client)
-    /* End of Spark */
-
-    /* Luckperms */
-    implementation(libs.luckperms)
-    implementation(libs.sponge.configurate.core)
-    implementation(libs.sponge.configurate.hocon)
-    implementation(libs.hikari)
-    implementation(libs.h2database) // Replace with database provider of your choice
-    /* End of Luckperms */
 }
 
 java {
@@ -50,11 +23,6 @@ java {
 }
 
 tasks{
-
-    shadowJar{
-        archiveClassifier.set("")
-        mergeServiceFiles()
-    }
 
     compileJava{
         options.encoding = "UTF-8"

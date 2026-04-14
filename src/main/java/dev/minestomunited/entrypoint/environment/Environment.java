@@ -1,4 +1,4 @@
-package club.tesseract.minestom.environment;
+package dev.minestomunited.entrypoint.environment;
 
 
 public enum Environment {

@@ -1,31 +1,9 @@
 [versions]
 lombok = "1.18.44"
-shadow = "9.4.1"
-minestom = "2026.04.13-1.21.11"
-logback = "1.5.32"
-jansi = "2.4.3"
-luckperms = "5.5-SNAPSHOT"
-configurate = "4.2.0"
-hikari = "7.0.2"
-h2database = "2.4.240"
-minestom-utils = "0.1.0"
-spark = "1.10-SNAPSHOT"
-bytesocks-java-client = "1.0-SNAPSHOT"
+minestom = "2026.03.25-1.21.11"
 
 [libraries]
 # Common
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 minestom = { module = "net.minestom:minestom", version.ref = "minestom" }
-logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
-jansi = { module = "org.fusesource.jansi:jansi", version.ref = "jansi" }
-luckperms = { module = "dev.lu15:luckperms-minestom", version.ref = "luckperms" }
-sponge-configurate-core = { module = "org.spongepowered:configurate-core", version.ref = "configurate" }
-sponge-configurate-hocon = { module = "org.spongepowered:configurate-hocon", version.ref = "configurate" }
-hikari = { module = "com.zaxxer:HikariCP", version.ref = "hikari" }
-h2database = { module = "com.h2database:h2", version.ref = "h2database" }
-minestom-utils = { module = "club.tesseract.minestom:minestom-utils", version.ref = "minestom-utils" }
-minestom-spark = { module = "dev.lu15:spark-minestom", version.ref = "spark" }
-bytesocks-java-client = { module = "me.lucko:bytesocks-java-client", version.ref = "bytesocks-java-client" }
 
-[plugins]
-shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

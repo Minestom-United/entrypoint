@@ -1,3 +1,3 @@
-rootProject.name = "minestom-template"
+rootProject.name = "entrypoint"
 
 includeBuild("build-logic")

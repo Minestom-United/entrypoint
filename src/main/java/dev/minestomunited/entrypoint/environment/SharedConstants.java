@@ -1,10 +1,11 @@
-package club.tesseract.minestom.environment;
+package dev.minestomunited.entrypoint.environment;
 
 import java.util.UUID;
 
 public class SharedConstants {
 
     public final static Environment ENVIRONMENT = getFromEnumOrDefault("ENVIRONMENT", Environment.PRODUCTION);
+    public final static String PROXIED_SECRET = getEnvOrDefault("VELOCITY_SECRET", "secret");
     public final static String HOSTNAME = getHostName();
 
 
