@@ -1,5 +1,7 @@
 package dev.minestomunited.entrypoint.player;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -15,8 +17,10 @@ public interface PlayerSession {
 
     Instant createdAt();
 
+    @Nullable
     String proxyId();
 
+    @Nullable
     String serverId();
 
     record Generic(
@@ -24,7 +28,7 @@ public interface PlayerSession {
             String username,
             PlayerSkin playerSkin,
             Instant createdAt,
-            String proxyId,
-            String serverId) implements PlayerSession {
+            @Nullable String proxyId,
+            @Nullable String serverId) implements PlayerSession {
     }
 }

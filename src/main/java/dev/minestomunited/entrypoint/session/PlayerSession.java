@@ -15,6 +15,7 @@ public interface PlayerSession {
 
     Instant createdAt();
 
+    @Nullable
     String proxyId();
 
     @Nullable
@@ -25,7 +26,7 @@ public interface PlayerSession {
             String username,
             PlayerSkin playerSkin,
             Instant createdAt,
-            String proxyId,
+            @Nullable String proxyId,
             @Nullable String serverId) implements PlayerSession {
     }
 }

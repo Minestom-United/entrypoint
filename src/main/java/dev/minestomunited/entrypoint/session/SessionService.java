@@ -1,10 +1,10 @@
 package dev.minestomunited.entrypoint.session;
 
-import com.google.auto.service.AutoService;
 import dev.minestomunited.entrypoint.player.PlayerData;
 import dev.minestomunited.entrypoint.player.PlayerSkin;
 import net.kyori.adventure.util.Services.Fallback;
 import org.jetbrains.annotations.Blocking;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,7 +30,7 @@ public interface SessionService {
             String username,
             PlayerSkin playerSkin,
             String ip,
-            String proxy,
+            @Nullable String proxy,
             String version
     );
 
@@ -56,7 +56,7 @@ public interface SessionService {
                 String username,
                 PlayerSkin playerSkin,
                 String ip,
-                String proxy,
+                @Nullable String proxy,
                 String version) {
             return new PlayerData.Generic(uuid, username, playerSkin, ip, proxy, version);
         }

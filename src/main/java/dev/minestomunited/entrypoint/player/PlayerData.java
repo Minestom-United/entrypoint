@@ -1,5 +1,7 @@
 package dev.minestomunited.entrypoint.player;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.UUID;
 
 /**
@@ -15,6 +17,7 @@ public interface PlayerData {
 
     String ip();
 
+    @Nullable
     String proxy();
 
     String version();
@@ -24,6 +27,7 @@ public interface PlayerData {
             String username,
             PlayerSkin playerSkin,
             String ip,
+            @Nullable
             String proxy,
             String version
     ) implements PlayerData {
