@@ -20,4 +20,4 @@ jobs:
           cache-read-only: false
 
       - name: Assemble Jar
-        run: ./gradlew --no-daemon --build-cache --parallel thinJar
+        run: ./gradlew --no-daemon --build-cache --parallel build
