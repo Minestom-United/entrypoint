@@ -1,7 +1,7 @@
 package dev.minestomunited.entrypoint.config;
 
 /**
- * Implement this class in every config file
+ * Implement this interface in every config file
  */
 public interface Config {
 }
