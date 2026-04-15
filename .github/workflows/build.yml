@@ -32,7 +32,7 @@ jobs:
           cache-read-only: false
 
       - name: Publish Jar
-        run: ./gradlew --build-cache --parallel publish --no-deamon
+        run: ./gradlew --build-cache --parallel publish --no-daemon
         env:
           REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
           REPO_PASSWORD: ${{ secrets.REPO_PASSWORD }}
