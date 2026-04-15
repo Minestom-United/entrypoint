@@ -44,7 +44,7 @@ public interface SessionService {
      *
      * @return list of active {@link PlayerSession}s
      */
-    List<dev.minestomunited.entrypoint.session.PlayerSession> sync();
+    List<PlayerSession> sync();
 
     @AutoService(SessionService.class)
     class Noop implements SessionService, Fallback {
@@ -65,7 +65,7 @@ public interface SessionService {
         }
 
         @Override
-        public List<dev.minestomunited.entrypoint.session.PlayerSession> sync() {
+        public List<PlayerSession> sync() {
             return List.of();
         }
     }
