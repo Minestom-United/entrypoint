@@ -2,7 +2,6 @@ package dev.minestomunited.entrypoint.session;
 
 import com.google.auto.service.AutoService;
 import dev.minestomunited.entrypoint.player.PlayerData;
-import dev.minestomunited.entrypoint.player.PlayerSession;
 import dev.minestomunited.entrypoint.player.PlayerSkin;
 import net.kyori.adventure.util.Services;
 import net.kyori.adventure.util.Services.Fallback;

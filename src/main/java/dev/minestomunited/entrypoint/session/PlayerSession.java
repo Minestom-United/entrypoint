@@ -1,4 +1,6 @@
-package dev.minestomunited.entrypoint.player;
+package dev.minestomunited.entrypoint.session;
+
+import dev.minestomunited.entrypoint.player.PlayerSkin;
 
 import java.time.Instant;
 import java.util.UUID;
