@@ -4,13 +4,15 @@ import com.google.auto.service.AutoService;
 import dev.minestomunited.entrypoint.player.PlayerData;
 import dev.minestomunited.entrypoint.player.PlayerSkin;
 import net.kyori.adventure.util.Services.Fallback;
+import org.jetbrains.annotations.Blocking;
 
 import java.util.List;
 import java.util.UUID;
 
 /**
- *
+ * Manages player sessions across the network.
  */
+@Blocking
 public interface SessionService {
     /**
      * Registers a new player session.
