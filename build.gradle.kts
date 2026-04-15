@@ -14,9 +14,6 @@ repositories {
 
 dependencies {
     api(libs.minestom)
-
-    implementation(libs.lombok)
-    annotationProcessor(libs.lombok)
 }
 
 java {
