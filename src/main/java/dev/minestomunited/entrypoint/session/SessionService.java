@@ -21,7 +21,7 @@ public interface SessionService {
      * @param uuid       player's UUID
      * @param playerSkin player's skin textures and signature from Mojang
      * @param ip         connecting client IP address
-     * @param proxy      proxy node the player connected through
+     * @param proxy      the proxy node the player connected through
      * @param version    Minecraft protocol version string
      * @return populated {@link PlayerData} for this session
      */
