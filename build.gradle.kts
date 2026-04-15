@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "dev.minestomunited.entrypoint"
-version = "1.0.0"
+version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -27,7 +27,12 @@ publishing {
     repositories {
         maven {
             name = "MinestomUnitedRepository"
-            url = uri("https://repo.minestom-united.dev/snapshots")
+            val isSnapshot = version.toString().endsWith("-SNAPSHOT")
+            url = uri(
+                if (isSnapshot)
+                    "https://repo.minestom-united.dev/snapshots"
+                else "https://repo.minestom-united.dev/releases"
+            )
 
             var u = System.getenv("REPO_USERNAME")
             var p = System.getenv("REPO_PASSWORD")
