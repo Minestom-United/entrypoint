@@ -1,4 +1,4 @@
-package dev.minestomunited.entrypoint;
+package dev.minestomunited.entrypoint.server;
 
 import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.session.SessionService;
