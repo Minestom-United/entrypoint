@@ -2,7 +2,7 @@ plugins {
     java
     `maven-publish`
     `java-library`
-    id("io.freefair.lombok") version "9.2.0"
+    alias(libs.plugins.lombok)
 }
 
 group = "dev.minestomunited.entrypoint"

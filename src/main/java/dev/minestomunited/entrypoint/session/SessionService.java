@@ -16,8 +16,8 @@ public interface SessionService {
             .orElseThrow(() -> new IllegalStateException("Couldn't find Noop impl!"));
 
     PlayerData createSession(
-            String username,
             UUID uuid,
+            String username,
             PlayerSkin playerSkin,
             String ip,
             String proxy,
@@ -32,13 +32,14 @@ public interface SessionService {
     class Noop implements SessionService, Fallback {
 
         @Override
-        public PlayerData createSession(String username,
-                                        UUID uuid,
-                                        PlayerSkin playerSkin,
-                                        String ip,
-                                        String proxy,
-                                        String version) {
-            return new PlayerData.Generic(username, uuid, playerSkin, ip, proxy, version);
+        public PlayerData createSession(
+                UUID uuid,
+                String username,
+                PlayerSkin playerSkin,
+                String ip,
+                String proxy,
+                String version) {
+            return new PlayerData.Generic(uuid, username, playerSkin, ip, proxy, version);
         }
 
         @Override

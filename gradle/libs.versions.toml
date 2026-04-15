@@ -1,8 +1,14 @@
 [versions]
 minestom = "2026.04.13-1.21.11"
 autoService = "1.1.1"
+lombok = "9.2.0"
+shadow = "9.4.1"
 
 [libraries]
 minestom = { module = "net.minestom:minestom", version.ref = "minestom" }
 autoService = { module = "com.google.auto.service:auto-service", version.ref = "autoService" }
+
+[plugins]
+lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 

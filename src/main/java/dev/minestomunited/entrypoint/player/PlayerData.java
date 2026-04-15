@@ -17,8 +17,8 @@ public interface PlayerData {
     String version();
 
     record Generic(
-            String username,
             UUID uuid,
+            String username,
             PlayerSkin playerSkin,
             String ip,
             String proxy,
