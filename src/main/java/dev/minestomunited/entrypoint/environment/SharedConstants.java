@@ -2,6 +2,9 @@ package dev.minestomunited.entrypoint.environment;
 
 import java.util.UUID;
 
+/**
+ * Server-wide constants resolved from environment variables at startup.
+ */
 public class SharedConstants {
 
     public final static Environment ENVIRONMENT = getFromEnumOrDefault("ENVIRONMENT", Environment.PRODUCTION);
@@ -25,6 +28,7 @@ public class SharedConstants {
         if (System.getenv("HOSTNAME") != null) {
             return System.getenv("HOSTNAME");
         } else if (ENVIRONMENT.test(Environment.TESTING)) {
+            // No HOSTNAME env var in local/test — generate a random identifier
             return "dev-" + UUID.randomUUID().toString().substring(0, 5) + "-" + UUID.randomUUID().toString().substring(0, 5);
         }
 
