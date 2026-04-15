@@ -14,7 +14,6 @@ repositories {
 
 dependencies {
     api(libs.minestom)
-    annotationProcessor(libs.autoService)
 }
 
 java {

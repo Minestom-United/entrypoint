@@ -48,7 +48,6 @@ public interface SessionService {
      */
     List<PlayerSession> sync();
 
-    @AutoService(SessionService.class)
     class Noop implements SessionService, Fallback {
 
         @Override
