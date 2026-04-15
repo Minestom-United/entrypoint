@@ -42,8 +42,6 @@ publishing {
             val user = providers.gradleProperty("MinestomUnitedRepositoryUsername").orElse(u).get()
             val pass = providers.gradleProperty("MinestomUnitedRepositoryPassword").orElse(p).get()
 
-            println(user)
-            println(pass)
             credentials {
                 username = user
                 password = pass
