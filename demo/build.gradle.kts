@@ -1,6 +1,7 @@
 plugins {
     id("java")
-    id("com.gradleup.shadow") version "9.4.1"
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.shadow)
     application
 }
 
@@ -16,5 +17,5 @@ dependencies {
 }
 
 application {
-    mainClass="dev.minestomunited.entrypoint.DemoMain"
+    mainClass = "dev.minestomunited.entrypoint.DemoMain"
 }
