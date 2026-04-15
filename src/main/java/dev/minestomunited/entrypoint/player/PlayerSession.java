@@ -3,6 +3,9 @@ package dev.minestomunited.entrypoint.player;
 import java.time.Instant;
 import java.util.UUID;
 
+/**
+ * Represents an active player session tracked across the network.
+ */
 public interface PlayerSession {
     UUID uuid();
 

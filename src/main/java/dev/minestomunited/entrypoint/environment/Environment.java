@@ -10,6 +10,16 @@ public enum Environment {
     ANY; // Any environment
 
 
+    /**
+     * Tests whether {@code this} environment satisfies the given {@code environment} requirement.
+     *
+     * <p>Each environment implicitly includes "lower" environments in the hierarchy:
+     * {@code PRODUCTION ⊃ DEPLOYING ⊃ STAGING ⊃ TESTING ⊃ DEVELOPMENT}.
+     * {@link #ANY} always returns {@code true} regardless of the argument.
+     *
+     * @param environment the required environment level to test against
+     * @return {@code true} if this environment meets the requirement
+     */
     public boolean test(Environment environment) {
         if (this == ANY) return true;
 

@@ -11,11 +11,25 @@ import org.jetbrains.annotations.Blocking;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Manages player sessions across the network.
+ */
 @Blocking
 public interface SessionService {
     SessionService INSTANCE = Services.serviceWithFallback(SessionService.class)
-            .orElseThrow(() -> new IllegalStateException("Couldn't find Noop impl!"));
+            .orElseThrow(() -> new IllegalStateException("Couldn't find Noop impl!")); // Trop: this is sus, perhaps cleaner way of creating instance
 
+    /**
+     * Registers a new player session.
+     *
+     * @param username   player's username
+     * @param uuid       player's UUID
+     * @param playerSkin player's skin textures and signature from Mojang
+     * @param ip         connecting client IP address
+     * @param proxy      proxy node the player connected through
+     * @param version    Minecraft protocol version string
+     * @return populated {@link PlayerData} for this session
+     */
     PlayerData createSession(
             String username,
             UUID uuid,
@@ -25,8 +39,18 @@ public interface SessionService {
             String version
     );
 
+    /**
+     * Removes the session for the given player UUID.
+     *
+     * @param uuid player UUID to remove
+     */
     void deleteSession(UUID uuid);
 
+    /**
+     * Returns all currently active sessions across the network.
+     *
+     * @return list of active {@link PlayerSession}s
+     */
     List<PlayerSession> sync();
 
     @AutoService(SessionService.class)
