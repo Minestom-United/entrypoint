@@ -1,5 +1,8 @@
 plugins {
+    java
+    `maven-publish`
     `java-library`
+    id("io.freefair.lombok") version "9.2.0"
 }
 
 group = "dev.minestomunited.entrypoint"
@@ -18,13 +21,43 @@ dependencies {
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(25))
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
 }
 
-tasks{
+publishing {
+    repositories {
+        maven {
+            name = "MinestomUnitedRepository"
+            url = uri("https://repo.minestom-united.dev/snapshots")
 
-    compileJava{
-        options.encoding = "UTF-8"
+            var u = System.getenv("REPO_USERNAME")
+            var p = System.getenv("REPO_PASSWORD")
+
+            if (u == null || u.isEmpty()) {
+                u = "no-value-provided"
+            }
+            if (p == null || p.isEmpty()) {
+                p = "no-value-provided"
+            }
+
+            val user = providers.gradleProperty("MinestomUnitedRepositoryUsername").orElse(u).get()
+            val pass = providers.gradleProperty("MinestomUnitedRepositoryPassword").orElse(p).get()
+            credentials {
+                username = user
+                password = pass
+            }
+            authentication {
+                create<BasicAuthentication>("basic") {
+
+                }
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = project.group.toString()
+            artifactId = project.name
+            version = project.version.toString()
+            from(components["java"])
+        }
     }
 }
