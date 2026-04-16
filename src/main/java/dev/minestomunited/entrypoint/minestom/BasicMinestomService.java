@@ -14,7 +14,7 @@ public class BasicMinestomService implements MinestomService {
 
     private MinecraftServer server = null;
     private final ConfigLoader configLoader;
-    private final MinestomPlayerService minestomPlayerService;
+    private MinestomPlayerService minestomPlayerService = null;
     private final SessionService sessionService;
     private final PlayerService playerService;
 
@@ -22,7 +22,6 @@ public class BasicMinestomService implements MinestomService {
         this.configLoader = configLoader;
         this.sessionService = sessionService;
         this.playerService = playerService;
-        minestomPlayerService = new MinestomPlayerService(eventNode(), sessionService, playerService);
     }
 
     @Override
@@ -31,6 +30,7 @@ public class BasicMinestomService implements MinestomService {
             throw new IllegalStateException("server already setup");
         }
         server = MinecraftServer.init(auth);
+        minestomPlayerService = new MinestomPlayerService(eventNode(), sessionService, playerService);
     }
 
     @Override
@@ -45,6 +45,9 @@ public class BasicMinestomService implements MinestomService {
 
     @Override
     public EventNode<Event> eventNode() {
+        if(server == null) {
+            throw new IllegalStateException("server not setup, did you forget to call setup()?");
+        }
         return MinecraftServer.getGlobalEventHandler();
     }
 
