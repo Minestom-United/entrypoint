@@ -1,11 +1,12 @@
 package dev.minestomunited.entrypoint.session;
 
-import dev.minestomunited.entrypoint.player.PlayerData;
+import dev.minestomunited.entrypoint.environment.SharedConstants;
 import dev.minestomunited.entrypoint.player.PlayerSkin;
 import net.kyori.adventure.util.Services.Fallback;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -24,12 +25,12 @@ public interface SessionService {
      * @param ip         connecting client IP address
      * @param proxy      the player's connected proxy, null if not connected via proxy
      * @param version    Minecraft protocol version string
-     * @return populated {@link PlayerData} for this session
+     * @return populated {@link PlayerSession} for this session
      */
-    PlayerData createSession(
+    PlayerSession createSession(
             UUID uuid,
             String username,
-            PlayerSkin playerSkin,
+            @Nullable PlayerSkin playerSkin,
             String ip,
             @Nullable String proxy,
             String version
@@ -49,17 +50,18 @@ public interface SessionService {
      */
     Collection<PlayerSession> sync();
 
+    @SuppressWarnings("unused")
     class Noop implements SessionService, Fallback {
 
         @Override
-        public PlayerData createSession(
+        public PlayerSession createSession(
                 UUID uuid,
                 String username,
-                PlayerSkin playerSkin,
+                @Nullable PlayerSkin playerSkin,
                 String ip,
                 @Nullable String proxy,
                 String version) {
-            return new PlayerData.Generic(uuid, username, playerSkin, ip, proxy, version);
+            return new PlayerSession.Generic(uuid, username, playerSkin, Instant.now(), ip, proxy, SharedConstants.HOSTNAME, version);
         }
 
         @Override

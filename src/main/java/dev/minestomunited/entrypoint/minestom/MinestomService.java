@@ -1,6 +1,9 @@
 package dev.minestomunited.entrypoint.minestom;
 
+import dev.minestomunited.entrypoint.minestom.player.MinestomPlayerService;
 import net.minestom.server.Auth;
+import net.minestom.server.event.Event;
+import net.minestom.server.event.EventNode;
 import org.jetbrains.annotations.Blocking;
 
 @Blocking
@@ -16,5 +19,11 @@ public interface MinestomService {
      * Starts the MinestomServer
      */
     void run();
+
+
+    EventNode<Event> eventNode();
+
+
+    MinestomPlayerService playerService();
 
 }

@@ -39,6 +39,13 @@ public interface PlayerSession {
     Instant createdAt();
 
     /**
+     * The ip of the player's client
+     *
+     * @return the ipv4 address (potential for ipv6 in the future if we support it)
+     */
+    String clientIp();
+
+    /**
      * The id of the proxy the player is connected to, null if the player didn't connect via proxy
      *
      * @return the proxy id
@@ -63,8 +70,9 @@ public interface PlayerSession {
     record Generic(
             UUID uuid,
             String username,
-            PlayerSkin playerSkin,
+            @Nullable PlayerSkin playerSkin,
             Instant createdAt,
+            String clientIp,
             @Nullable String proxy,
             String serverId,
             String version) implements PlayerSession {
