@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     api(libs.minestom)
+    api(libs.logging.api)
 }
 
 java {
