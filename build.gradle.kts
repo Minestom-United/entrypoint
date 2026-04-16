@@ -27,9 +27,9 @@ publishing {
             name = "MinestomUnitedRepository"
             val isSnapshot = version.toString().endsWith("-SNAPSHOT")
             url = uri(
-                if (isSnapshot)
-                    "https://repo.minestom-united.dev/snapshots"
-                else "https://repo.minestom-united.dev/releases"
+                    if (isSnapshot)
+                        "https://repo.minestom-united.dev/snapshots"
+                    else "https://repo.minestom-united.dev/releases"
             )
 
             var u = System.getenv("REPO_USERNAME")
