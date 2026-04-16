@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -18,6 +19,10 @@ import java.util.Optional;
  *
  * <p>Sources are applied in ascending priority order — the highest-priority source
  * that provides data for a given config key wins (whole-object replacement, no merging).
+ *
+ * <p>Once {@link #initialize(String[])} has been called, subsequent calls to
+ * {@link #register(Class, Config)} will load the config immediately rather than
+ * deferring to a future initialize call.
  *
  * <p>Registered via {@link java.util.ServiceLoader}.
  */
@@ -27,12 +32,20 @@ public class BasicConfigLoader implements ConfigLoader {
 
     private @Nullable ConfigFormat format;
     private final List<ConfigSource> sources = new ArrayList<>();
-    private final Map<Class<? extends Config>, Config> defaults = new HashMap<>();
-    private final Map<Class<? extends Config>, Config> loaded = new HashMap<>();
+    private final Map<Class<? extends Config>, @Nullable Config> defaults = new HashMap<>();
+    private final Map<Class<? extends Config>, @Nullable Config> loaded = new HashMap<>();
+    private boolean initialized = false;
 
     @Override
     public ConfigLoader withFormat(ConfigFormat format) {
         this.format = format;
+        if (initialized) {
+            LOGGER.debug("ConfigFormat changed post-init — reloading all configs");
+            for (Map.Entry<Class<? extends Config>, @Nullable Config> entry : defaults.entrySet()) {
+                //noinspection unchecked
+                loadConfig((Class<? extends Config>) entry.getKey(), entry.getValue(), format);
+            }
+        }
         return this;
     }
 
@@ -44,53 +57,74 @@ public class BasicConfigLoader implements ConfigLoader {
     }
 
     @Override
-    public <C extends Config> ConfigLoader register(Class<C> clazz, C defaultInstance) {
+    public <C extends Config> ConfigLoader register(Class<C> clazz, @Nullable C defaultInstance) {
         defaults.put(clazz, defaultInstance);
+        if (initialized) {
+            loadConfig(clazz, defaultInstance);
+        }
         return this;
     }
 
     @Override
     public ConfigLoader initialize(String[] args) {
-        if (format == null) {
-            throw new IllegalStateException("No ConfigFormat set — call withFormat() before initialize()");
+        if (initialized) {
+            throw new IllegalStateException("ConfigLoader already initialized — register() new configs after initialize() instead");
+        }
+        ConfigFormat fmt = Objects.requireNonNull(format,
+                "No ConfigFormat set — call withFormat() before initialize()");
+
+        for (Map.Entry<Class<? extends Config>, @Nullable Config> entry : defaults.entrySet()) {
+            //noinspection unchecked
+            loadConfig((Class<? extends Config>) entry.getKey(), entry.getValue(), fmt);
         }
 
-        for (Map.Entry<Class<? extends Config>, Config> entry : defaults.entrySet()) {
-            Class<? extends Config> clazz = entry.getKey();
-            Config resolved = entry.getValue();
-
-            String key = resolveKey(clazz);
-
-            // Apply sources in ascending priority — last non-empty result wins
-            for (ConfigSource source : sources) {
-                Optional<InputStream> data = source.read(key);
-                if (data.isEmpty()) {
-                    continue;
-                }
-                try (InputStream in = data.get()) {
-                    resolved = format.deserialize(clazz, in);
-                    LOGGER.debug("Loaded {} from {} (priority {})", clazz.getSimpleName(), source.getClass().getSimpleName(), source.priority());
-                } catch (IOException e) {
-                    LOGGER.warn("Failed to load {} from {} — skipping source", clazz.getSimpleName(), source.getClass().getSimpleName(), e);
-                }
-            }
-
-            loaded.put(clazz, resolved);
-            LOGGER.info("Config {} resolved", clazz.getSimpleName());
-        }
-
+        initialized = true;
         return this;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <C extends Config> Optional<C> get(Class<C> clazz) {
-        C config = (C) loaded.get(clazz);
+        @Nullable C config = (C) loaded.get(clazz);
         return Optional.ofNullable(config);
     }
 
+    @SuppressWarnings("unchecked")
+    private <C extends Config> void loadConfig(Class<? extends Config> clazz, @Nullable Config defaultInstance) {
+        ConfigFormat fmt = Objects.requireNonNull(format,
+                "loadConfig called without a ConfigFormat — this is a bug");
+        loadConfig(clazz, defaultInstance, fmt);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <C extends Config> void loadConfig(Class<? extends Config> clazz, @Nullable Config defaultInstance, ConfigFormat fmt) {
+        @Nullable Config resolved = defaultInstance;
+        String key = resolveKey(clazz);
+
+        for (ConfigSource source : sources) {
+            Optional<InputStream> data = source.read(key);
+            if (data.isEmpty()) {
+                continue;
+            }
+            try (InputStream in = data.get()) {
+                @Nullable C deserialized = fmt.deserialize((Class<C>) clazz, in);
+                if (deserialized == null) {
+                    LOGGER.warn("ConfigFormat returned null for {} from {} — skipping source", clazz.getSimpleName(), source.getClass().getSimpleName());
+                    continue;
+                }
+                resolved = deserialized;
+                LOGGER.debug("Loaded {} from {} (priority {})", clazz.getSimpleName(), source.getClass().getSimpleName(), source.priority());
+            } catch (IOException e) {
+                LOGGER.warn("Failed to load {} from {} — skipping source", clazz.getSimpleName(), source.getClass().getSimpleName(), e);
+            }
+        }
+
+        loaded.put(clazz, resolved);
+        LOGGER.info("Config {} resolved", clazz.getSimpleName());
+    }
+
     private static String resolveKey(Class<? extends Config> clazz) {
-        ConfigFile annotation = clazz.getAnnotation(ConfigFile.class);
-        return annotation != null ? annotation.value() : clazz.getSimpleName() + ".yml";
+        @Nullable ConfigFile annotation = clazz.getAnnotation(ConfigFile.class);
+        return annotation != null ? annotation.value() : clazz.getSimpleName();
     }
 }

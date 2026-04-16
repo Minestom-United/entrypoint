@@ -24,9 +24,13 @@ import java.util.Optional;
 public interface ConfigSource {
 
     /**
-     * Read raw config data for the given key (typically a file name or path).
+     * Read raw config data for the given key.
      *
-     * @param key the config identifier, usually from {@link ConfigFile#value()}
+     * <p>The key is extension-free (e.g. {@code "server"}, not {@code "server.yml"}).
+     * Implementations are responsible for appending whatever extension they require
+     * before resolving the underlying resource.
+     *
+     * @param key the config identifier, usually from {@link ConfigFile#value()} or the simple class name
      * @return the data stream, or empty if this source does not have it
      */
     Optional<InputStream> read(String key);

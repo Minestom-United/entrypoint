@@ -1,6 +1,7 @@
 package dev.minestomunited.entrypoint;
 
 import dev.minestomunited.entrypoint.config.ConfigLoader;
+import dev.minestomunited.entrypoint.config.NoopConfigFormat;
 import dev.minestomunited.entrypoint.config.impl.AuthConfig;
 import dev.minestomunited.entrypoint.config.impl.ServerConfig;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
@@ -26,6 +27,7 @@ public class EntryPoint {
         }
 
         configLoader
+                .withFormat(new NoopConfigFormat())
                 .register(AuthConfig.class, new AuthConfig(new Auth.Offline()))
                 .register(ServerConfig.class, new ServerConfig("0.0.0.0", 25565))
                 .initialize(args);
