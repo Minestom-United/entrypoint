@@ -47,12 +47,18 @@ public interface PlayerSession {
     String proxy();
 
     /**
-     * The id of the server the player is connected to, null if the player is switching servers
+     * The id of the server the player is connected to
      *
      * @return the server id
      */
-    @Nullable
     String serverId();
+
+    /**
+     * The version string of the player's client
+     *
+     * @return the version string
+     */
+    String version();
 
     record Generic(
             UUID uuid,
@@ -60,7 +66,7 @@ public interface PlayerSession {
             PlayerSkin playerSkin,
             Instant createdAt,
             @Nullable String proxy,
-            @Nullable String serverId,
+            String serverId,
             String version) implements PlayerSession {
     }
 }
