@@ -7,7 +7,6 @@ public class DemoMain {
     static void main(String[] args) {
         EntryPoint.run(args, (configLoader) -> {
             configLoader
-                    .withFormat(new StringSerializedConfigFormat())
                     .addSource(new EnvironmentVariableConfigSource())
             ;
             return new DemoServer(configLoader);
