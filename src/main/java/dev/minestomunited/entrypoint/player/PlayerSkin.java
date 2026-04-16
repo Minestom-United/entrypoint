@@ -1,7 +1,5 @@
 package dev.minestomunited.entrypoint.player;
 
-import net.minestom.server.network.player.ResolvableProfile;
-
 /**
  * Holds a player's skin data as returned by the Mojang session server.
  *

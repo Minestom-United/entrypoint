@@ -1,13 +1,12 @@
 package dev.minestomunited.entrypoint.session;
 
-import com.google.auto.service.AutoService;
 import dev.minestomunited.entrypoint.player.PlayerData;
-import dev.minestomunited.entrypoint.player.PlayerSession;
 import dev.minestomunited.entrypoint.player.PlayerSkin;
-import net.kyori.adventure.util.Services;
 import net.kyori.adventure.util.Services.Fallback;
 import org.jetbrains.annotations.Blocking;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,9 +15,6 @@ import java.util.UUID;
  */
 @Blocking
 public interface SessionService {
-    SessionService INSTANCE = Services.serviceWithFallback(SessionService.class)
-            .orElseThrow(() -> new IllegalStateException("Couldn't find Noop impl!")); // Trop: this is sus, perhaps cleaner way of creating instance
-
     /**
      * Registers a new player session.
      *
@@ -26,16 +22,16 @@ public interface SessionService {
      * @param uuid       player's UUID
      * @param playerSkin player's skin textures and signature from Mojang
      * @param ip         connecting client IP address
-     * @param proxy      proxy node the player connected through
+     * @param proxy      the player's connected proxy, null if not connected via proxy
      * @param version    Minecraft protocol version string
      * @return populated {@link PlayerData} for this session
      */
     PlayerData createSession(
-            String username,
             UUID uuid,
+            String username,
             PlayerSkin playerSkin,
             String ip,
-            String proxy,
+            @Nullable String proxy,
             String version
     );
 
@@ -49,21 +45,21 @@ public interface SessionService {
     /**
      * Returns all currently active sessions across the network.
      *
-     * @return list of active {@link PlayerSession}s
+     * @return collection of active {@link PlayerSession}s
      */
-    List<PlayerSession> sync();
+    Collection<PlayerSession> sync();
 
-    @AutoService(SessionService.class)
     class Noop implements SessionService, Fallback {
 
         @Override
-        public PlayerData createSession(String username,
-                                        UUID uuid,
-                                        PlayerSkin playerSkin,
-                                        String ip,
-                                        String proxy,
-                                        String version) {
-            return new PlayerData.Generic(username, uuid, playerSkin, ip, proxy, version);
+        public PlayerData createSession(
+                UUID uuid,
+                String username,
+                PlayerSkin playerSkin,
+                String ip,
+                @Nullable String proxy,
+                String version) {
+            return new PlayerData.Generic(uuid, username, playerSkin, ip, proxy, version);
         }
 
         @Override
@@ -71,7 +67,7 @@ public interface SessionService {
         }
 
         @Override
-        public List<PlayerSession> sync() {
+        public Collection<PlayerSession> sync() {
             return List.of();
         }
     }
