@@ -39,7 +39,7 @@ public interface PlayerSession {
     Instant createdAt();
 
     /**
-     * The id of the proxy the player is connected to, null if the player didn't via proxy
+     * The id of the proxy the player is connected to, null if the player didn't connect via proxy
      *
      * @return the proxy id
      */
