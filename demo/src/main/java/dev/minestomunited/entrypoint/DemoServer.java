@@ -5,8 +5,8 @@ import dev.minestomunited.entrypoint.minestom.BasicMinestomService;
 import dev.minestomunited.entrypoint.minestom.MinestomService;
 import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
+import dev.minestomunited.entrypoint.session.MemorySessionService;
 import dev.minestomunited.entrypoint.session.SessionService;
-import dev.minestomunited.entrypoint.session.SessionServiceImpl;
 import org.jspecify.annotations.NonNull;
 
 public class DemoServer extends AbstractMinestomServer {
@@ -16,9 +16,9 @@ public class DemoServer extends AbstractMinestomServer {
 
     protected DemoServer(ConfigLoader config) {
         super(config);
-        sessionService = new SessionServiceImpl();
+        sessionService = new MemorySessionService();
         playerService = new PlayerServiceImpl();
-        minestomService = new BasicMinestomService(config);
+        minestomService = new BasicMinestomService(config, sessionService, playerService);
     }
 
     @Override

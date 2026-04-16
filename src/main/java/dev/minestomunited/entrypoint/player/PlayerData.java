@@ -1,5 +1,6 @@
 package dev.minestomunited.entrypoint.player;
 
+import net.minestom.server.tag.Tag;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -8,6 +9,8 @@ import java.util.UUID;
  * Immutable snapshot of a player's connection data captured at session creation.
  */
 public interface PlayerData {
+
+    Tag<PlayerData> TAG = Tag.Transient("player_data"); // TODO - validate if this persists "enough"
 
     /**
      * The online player's uuid

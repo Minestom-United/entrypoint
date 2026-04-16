@@ -38,6 +38,7 @@ public class EntryPoint {
                 .orElseThrow(() -> new RuntimeException("AuthConfig not loaded"));
 
         server.minestomService().setup(authConfig.auth());
+
         server.minestomService().run();
 
         long finish = System.currentTimeMillis();
