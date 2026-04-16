@@ -4,7 +4,6 @@ import dev.minestomunited.entrypoint.player.PlayerData;
 import dev.minestomunited.entrypoint.player.PlayerSkin;
 
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -15,7 +14,7 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public PlayerData createSession(UUID uuid, String username, PlayerSkin playerSkin, String ip, String proxy, String version) {
-        sessions.put(uuid, new PlayerSession.Generic(uuid, username, playerSkin, Instant.now(), proxy, null, version));
+        sessions.put(uuid, new PlayerSession.Generic(uuid, username, playerSkin, Instant.now(), proxy, ip, version));
         return new PlayerData.Generic(uuid, username, playerSkin, ip, proxy, version);
     }
 
