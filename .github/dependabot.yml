@@ -9,6 +9,7 @@ updates:
     target-branch: "main"
     reviewers:
       - "TropicalShadow"
+      - "Foxikle"
       - "Webhead1104"
   - package-ecosystem: "gradle"
     directory: "/"
@@ -19,4 +20,5 @@ updates:
     target-branch: "main"
     reviewers:
       - "TropicalShadow"
+      - "Foxikle"
       - "Webhead1104"
