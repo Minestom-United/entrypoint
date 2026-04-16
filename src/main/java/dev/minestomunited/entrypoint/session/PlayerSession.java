@@ -11,21 +11,21 @@ import java.util.UUID;
  */
 public interface PlayerSession {
     /**
-     * The online player's uuid
+     * The session player's uuid
      *
      * @return the uuid
      */
     UUID uuid();
 
     /**
-     * The online player's username
+     * The session player's username
      *
      * @return the username
      */
     String username();
 
     /**
-     * The online player's skin
+     * The session player's skin
      *
      * @return the skin
      */
@@ -44,7 +44,7 @@ public interface PlayerSession {
      * @return the proxy id
      */
     @Nullable
-    String proxyId();
+    String proxy();
 
     /**
      * The id of the server the player is connected to, null if the player is switching servers
@@ -59,7 +59,8 @@ public interface PlayerSession {
             String username,
             PlayerSkin playerSkin,
             Instant createdAt,
-            @Nullable String proxyId,
-            @Nullable String serverId) implements PlayerSession {
+            @Nullable String proxy,
+            @Nullable String serverId,
+            String version) implements PlayerSession {
     }
 }

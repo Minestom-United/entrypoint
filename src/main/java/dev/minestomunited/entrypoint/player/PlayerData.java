@@ -9,17 +9,47 @@ import java.util.UUID;
  */
 public interface PlayerData {
 
-    String username();
-
+    /**
+     * The online player's uuid
+     *
+     * @return the uuid
+     */
     UUID uuid();
 
+    /**
+     * The online player's username
+     *
+     * @return the username
+     */
+    String username();
+
+    /**
+     * The online player's skin
+     *
+     * @return the skin
+     */
     PlayerSkin playerSkin();
 
+    /**
+     * The online player's ip
+     *
+     * @return the ip
+     */
     String ip();
 
+    /**
+     * The online player's proxy, null if not connected via proxy
+     *
+     * @return the proxy id or null
+     */
     @Nullable
     String proxy();
 
+    /**
+     * The online player's version
+     *
+     * @return the version
+     */
     String version();
 
     record Generic(
