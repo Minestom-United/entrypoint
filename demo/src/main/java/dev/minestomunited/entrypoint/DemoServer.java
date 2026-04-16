@@ -5,6 +5,7 @@ import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
 import dev.minestomunited.entrypoint.session.SessionService;
 import dev.minestomunited.entrypoint.session.SessionServiceImpl;
+import org.jspecify.annotations.NonNull;
 
 public class DemoServer extends AbstractMinestomServer {
     private final SessionService sessionService;
@@ -17,12 +18,12 @@ public class DemoServer extends AbstractMinestomServer {
     }
 
     @Override
-    public SessionService sessionService() {
+    public @NonNull SessionService sessionService() {
         return sessionService;
     }
 
     @Override
-    public PlayerService playerService() {
+    public @NonNull PlayerService playerService() {
         return playerService;
     }
 }
