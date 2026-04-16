@@ -31,6 +31,9 @@ public interface ConfigLoader {
     /**
      * Set the format used to deserialize config data from all sources.
      *
+     * <p>If called after {@link #initialize(String[])}, all already-loaded configs are
+     * reprocessed using the new format immediately.
+     *
      * @param format the format implementation
      * @return this, for chaining
      */
@@ -73,10 +76,14 @@ public interface ConfigLoader {
      * Explicitly register a config class with a fallback default instance.
      *
      * <p>The default is used when no source provides data for this config.
-     * Sources with higher priority can still override individual fields.
+     *
+     * <p>If called before {@link #initialize(String[])}, the config is queued and loaded
+     * during initialization. If called after, the config is loaded immediately — this is
+     * the intended way for server implementations to register their own configs after
+     * receiving the loader from {@code EntryPoint}.
      *
      * @param clazz    the config class
-     * @param defaults the default instance (all fields set to sane defaults)
+     * @param defaults the default instance (all fields set to sane defaults), or null for no default
      * @param <C>      the config type
      * @return this, for chaining
      */

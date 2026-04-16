@@ -1,5 +1,7 @@
 package dev.minestomunited.entrypoint.config;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -33,10 +35,12 @@ public interface ConfigFormat {
      * @param type the config class to deserialize into
      * @param in   the raw data stream
      * @param <C>  the config type
-     * @return populated config instance
+     * @return populated config instance, or {@code null} if the data could not be mapped
+     *         (e.g. empty stream, missing required fields). The loader will skip null results
+     *         and fall back to the previously resolved value or registered default.
      * @throws IOException on read or parse failure
      */
-    <C extends Config> C deserialize(Class<C> type, InputStream in) throws IOException;
+    @Nullable <C extends Config> C deserialize(Class<C> type, InputStream in) throws IOException;
 
     /**
      * Serialize a config instance to an output stream.

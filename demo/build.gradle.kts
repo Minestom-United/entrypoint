@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation(project(":"))
+    implementation(libs.logging.impl)
 }
 
 application {

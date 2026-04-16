@@ -7,6 +7,7 @@ slf4j = "2.0.17"
 [libraries]
 minestom = { module = "net.minestom:minestom", version.ref = "minestom" }
 logging-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+logging-impl = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 
 [plugins]
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
