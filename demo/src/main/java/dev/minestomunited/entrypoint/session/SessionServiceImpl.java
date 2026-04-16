@@ -15,7 +15,7 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public @NonNull PlayerData createSession(@NonNull UUID uuid, @NonNull String username, @NonNull PlayerSkin playerSkin, @NonNull String ip, String proxy, @NonNull String version) {
-        sessions.put(uuid, new PlayerSession.Generic(uuid, username, playerSkin, Instant.now(), proxy, ip, version));
+        sessions.put(uuid, new PlayerSession.Generic(uuid, username, playerSkin, Instant.now(), proxy, ip, version)); // TODO: serverId should be the actual server id, not the player's ip
         return new PlayerData.Generic(uuid, username, playerSkin, ip, proxy, version);
     }
 

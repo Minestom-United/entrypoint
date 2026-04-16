@@ -23,7 +23,3 @@ java {
 application {
     mainClass = "dev.minestomunited.entrypoint.DemoMain"
 }
-
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
-}
