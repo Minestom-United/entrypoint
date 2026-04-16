@@ -9,5 +9,6 @@ public class EntryPoint {
 
     public static void run(Function<ConfigLoader, ? extends AbstractMinestomServer> serverFactory) {
         long start = System.currentTimeMillis();
+        // TODO: load ConfigLoader from args, call serverFactory.apply(config), then start the Minestom server
     }
 }

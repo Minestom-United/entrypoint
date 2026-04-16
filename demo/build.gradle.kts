@@ -16,6 +16,10 @@ dependencies {
     implementation(project(":"))
 }
 
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
+}
+
 application {
     mainClass = "dev.minestomunited.entrypoint.DemoMain"
 }

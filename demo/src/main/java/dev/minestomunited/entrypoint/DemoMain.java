@@ -2,7 +2,7 @@ package dev.minestomunited.entrypoint;
 
 public class DemoMain {
 
-    static void main() {
+    public static void main(String[] args) {
         EntryPoint.run(DemoServer::new);
     }
 }
