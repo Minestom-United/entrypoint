@@ -37,6 +37,10 @@ public class MinestomPlayerService {
                     final Player player = event.getPlayer();
                     final UUID playerId = player.getUuid();
                     PlayerData playerData = playerService.loadPlayerData(playerId); // Trop: i dont like this, we call it twice, but fuck it for now :)
+                    if (playerData == null) {
+                        // TODO - implement creating of player data here :)
+                        return;
+                    }
                     player.setTag(PlayerData.TAG, playerData);
                 })
                 .addListener(PlayerSpawnEvent.class, event -> {
