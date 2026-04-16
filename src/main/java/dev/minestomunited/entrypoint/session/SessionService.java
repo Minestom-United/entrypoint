@@ -6,6 +6,7 @@ import net.kyori.adventure.util.Services.Fallback;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,9 +45,9 @@ public interface SessionService {
     /**
      * Returns all currently active sessions across the network.
      *
-     * @return list of active {@link PlayerSession}s
+     * @return collection of active {@link PlayerSession}s
      */
-    List<PlayerSession> sync();
+    Collection<PlayerSession> sync();
 
     class Noop implements SessionService, Fallback {
 
@@ -66,7 +67,7 @@ public interface SessionService {
         }
 
         @Override
-        public List<PlayerSession> sync() {
+        public Collection<PlayerSession> sync() {
             return List.of();
         }
     }

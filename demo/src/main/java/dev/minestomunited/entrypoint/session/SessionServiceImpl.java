@@ -6,6 +6,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -26,7 +27,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public @NonNull List<PlayerSession> sync() {
-        return sessions.values().stream().toList();
+    public @NonNull Collection<PlayerSession> sync() {
+        return sessions.values();
     }
 }
