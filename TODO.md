@@ -1,0 +1,33 @@
+# Minestom United EntryPoint
+
+- [ ] GameSDK :think:
+    - [ ] Instance registry
+    - [ ] Player handling
+    - [ ] custom stuff
+- [ ] Matchmaking
+    - [ ] party support
+    - [ ] private matchmaking (User Creates their own Game like MVP++ on hypickle)
+    - [ ] ranked matchmaking, elo or something
+    - [ ] global matchmaking (generic matchmaking)
+- [ ] Queue system
+    - [ ] Party Support
+- [ ] Social System
+    - [ ] Friends
+        - [ ] CRUD
+        - [ ] Friend Requests
+        - [ ] Blocked Users
+        - [ ] Online Status
+        - [ ] Notifications
+    - [ ] Chat
+        - [ ] Private
+        - [ ] Public
+        - [ ] Global
+        - [ ] Party
+        - [ ] Guild
+    - [ ] Parties
+    - [ ] "Guilds"
+- [ ] Networking System
+    - [ ] ways to communicate between servers (SECURELY!)
+    - [ ] accessible interface for other services and features to utilise
+- [ ] Orchistration
+    - [ ] IDK tbh 
