@@ -12,13 +12,16 @@ import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.AsyncPlayerPreLoginEvent;
 import net.minestom.server.event.player.PlayerDisconnectEvent;
 import net.minestom.server.event.player.PlayerSpawnEvent;
+import net.minestom.server.network.player.GameProfile;
+import net.minestom.server.network.player.PlayerConnection;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public class MinestomPlayerService {
+public class MinestomPlayerService<P extends Player & NetworkPlayer> {
 
-    public MinestomPlayerService(EventNode<Event> eventNode, SessionService sessionService, PlayerService playerService) {
+    public MinestomPlayerService(EventNode<Event> eventNode, SessionService sessionService,
+                                 PlayerService playerService, MinestomPlayerProvider<P> playerProvider) {
         eventNode
                 .addListener(PlayerDisconnectEvent.class, event -> {
                     final UUID playerId = event.getPlayer().getUuid();
@@ -51,6 +54,22 @@ public class MinestomPlayerService {
                     sessionService.createSession(playerId, player.getUsername(), PlayerSkin.fromMinestom(player.getSkin()), player.getPlayerConnection().getRemoteAddress().toString(), "unknown", MinecraftServer.VERSION_NAME);
                 })
         ;
+        MinecraftServer.getConnectionManager().setPlayerProvider(playerProvider::createPlayer);
     }
 
+
+    @FunctionalInterface
+    public interface MinestomPlayerProvider<P extends Player & NetworkPlayer> {
+
+        /**
+         * Creates a new {@link P} object based on his connection data.
+         * <p>
+         * Called once a client want to join the server and need to have an assigned player object.
+         *
+         * @param connection  the player connection
+         * @param gameProfile the player game profile
+         * @return a newly create {@link P} object
+         */
+        P createPlayer(PlayerConnection connection, GameProfile gameProfile);
+    }
 }
