@@ -88,4 +88,17 @@ public interface ConfigLoader {
      * @return this, for chaining
      */
     <C extends Config> ConfigLoader register(Class<C> clazz, @Nullable C defaults);
+
+    /**
+     * Return a read-only {@link ConfigRegistry} view of this loader.
+     *
+     * <p>Must be called after {@link #initialize(String[])}. The returned registry
+     * reflects the state at call time; configs registered after this call are not
+     * visible through the returned instance.
+     *
+     * @return immutable registry backed by this loader's loaded configs
+     * @throws IllegalStateException if called before {@link #initialize(String[])}
+     */
+    @Contract("-> new")
+    ConfigRegistry asRegistry();
 }
