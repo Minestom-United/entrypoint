@@ -26,7 +26,10 @@ public class MinestomPlayerService<P extends Player & NetworkPlayer> {
                 .addListener(PlayerDisconnectEvent.class, event -> {
                     final UUID playerId = event.getPlayer().getUuid();
                     sessionService.deleteSession(playerId);
-                    playerService.updatePlayerData(event.getPlayer().getTag(PlayerData.TAG));
+                    PlayerData playerData = event.getPlayer().getTag(PlayerData.TAG);
+                    if (playerData != null) {
+                        playerService.updatePlayerData(playerData);
+                    }
                     playerService.unloadPlayerData(playerId);
                 })
                 .addListener(AsyncPlayerPreLoginEvent.class, event ->{

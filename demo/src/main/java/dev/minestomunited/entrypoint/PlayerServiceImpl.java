@@ -19,7 +19,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void unloadPlayerData(UUID playerId) {
+    public void unloadPlayerData(@NonNull UUID playerId) {
         // no caching, so we have nothing to unload, playerData acts as cache and persistence layer
     }
 
