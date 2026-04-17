@@ -1,9 +1,8 @@
 package dev.minestomunited.entrypoint.config;
 
+import java.util.Optional;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Optional;
 
 /**
  * Loads, resolves, and provides access to {@link Config} instances.

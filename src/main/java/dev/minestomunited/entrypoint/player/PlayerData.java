@@ -1,9 +1,8 @@
 package dev.minestomunited.entrypoint.player;
 
+import java.util.UUID;
 import net.minestom.server.tag.Tag;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.UUID;
 
 /**
  * Immutable snapshot of a player's connection data captured at session creation.

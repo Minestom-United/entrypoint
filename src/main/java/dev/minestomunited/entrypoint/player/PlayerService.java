@@ -1,9 +1,8 @@
 package dev.minestomunited.entrypoint.player;
 
+import java.util.UUID;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.UUID;
 
 @Blocking
 public interface PlayerService {
