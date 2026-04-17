@@ -1,11 +1,11 @@
 package dev.minestomunited.entrypoint.config.soruce;
 
 import dev.minestomunited.entrypoint.config.ConfigSource;
-import org.jspecify.annotations.NonNull;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Optional;
+
+import org.jspecify.annotations.NonNull;
 
 public final class EnvironmentVariableConfigSource implements ConfigSource {
 

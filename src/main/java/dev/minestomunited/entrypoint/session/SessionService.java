@@ -2,14 +2,14 @@ package dev.minestomunited.entrypoint.session;
 
 import dev.minestomunited.entrypoint.environment.SharedConstants;
 import dev.minestomunited.entrypoint.player.PlayerSkin;
-import net.kyori.adventure.util.Services.Fallback;
-import org.jetbrains.annotations.Blocking;
-import org.jetbrains.annotations.Nullable;
-
 import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+
+import net.kyori.adventure.util.Services.Fallback;
+import org.jetbrains.annotations.Blocking;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Manages player sessions across the network.

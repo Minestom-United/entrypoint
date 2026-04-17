@@ -1,5 +1,6 @@
 package dev.minestomunited.entrypoint.server;
 
+import dev.minestomunited.entrypoint.config.ConfigRegistry;
 import dev.minestomunited.entrypoint.minestom.MinestomService;
 import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.session.SessionService;
@@ -15,5 +16,7 @@ public interface MinestomServer {
 
     PlayerService playerService();
 
-    MinestomService minestomService();
+    MinestomService<?> minestomService();
+
+    ConfigRegistry configRegistry();
 }

@@ -4,17 +4,17 @@ import dev.minestomunited.entrypoint.config.*;
 import dev.minestomunited.entrypoint.config.impl.AuthConfig;
 import dev.minestomunited.entrypoint.config.impl.ServerConfig;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
-import net.minestom.server.Auth;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import net.minestom.server.Auth;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class EntryPoint {
 

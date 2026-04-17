@@ -4,6 +4,9 @@ import dev.minestomunited.entrypoint.player.PlayerData;
 import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.player.PlayerSkin;
 import dev.minestomunited.entrypoint.session.SessionService;
+
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.Event;
@@ -14,9 +17,6 @@ import net.minestom.server.event.player.PlayerDisconnectEvent;
 import net.minestom.server.event.player.PlayerSpawnEvent;
 import net.minestom.server.network.player.GameProfile;
 import net.minestom.server.network.player.PlayerConnection;
-
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class MinestomPlayerService<P extends Player & NetworkPlayer> {
 

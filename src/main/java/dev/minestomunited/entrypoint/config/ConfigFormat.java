@@ -1,10 +1,10 @@
 package dev.minestomunited.entrypoint.config;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Handles serialization and deserialization of {@link Config} objects.
