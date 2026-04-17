@@ -7,46 +7,46 @@ import java.time.Instant;
 import java.util.UUID;
 
 /**
- * An online player's session
+ * An online player's session.
  */
 public interface PlayerSession {
     /**
-     * The session player's uuid
+     * The session player's uuid.
      *
      * @return the uuid
      */
     UUID uuid();
 
     /**
-     * The session player's username
+     * The session player's username.
      *
      * @return the username
      */
     String username();
 
     /**
-     * The session player's skin
+     * The session player's skin.
      *
      * @return the skin
      */
     PlayerSkin playerSkin();
 
     /**
-     * The timestamp of when the session was created (when the player joined)
+     * The timestamp of when the session was created (when the player joined).
      *
      * @return the timestamp
      */
     Instant createdAt();
 
     /**
-     * The ip of the player's client
+     * The ip of the player's client.
      *
      * @return the ipv4 address (potential for ipv6 in the future if we support it)
      */
     String clientIp();
 
     /**
-     * The id of the proxy the player is connected to, null if the player didn't connect via proxy
+     * The id of the proxy the player is connected to, null if the player didn't connect via proxy.
      *
      * @return the proxy id
      */
@@ -54,14 +54,14 @@ public interface PlayerSession {
     String proxy();
 
     /**
-     * The id of the server the player is connected to
+     * The id of the server the player is connected to.
      *
      * @return the server id
      */
     String serverId();
 
     /**
-     * The version string of the player's client
+     * The version string of the player's client.
      *
      * @return the version string
      */

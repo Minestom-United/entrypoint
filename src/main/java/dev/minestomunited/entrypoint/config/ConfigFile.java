@@ -21,5 +21,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ConfigFile {
+    /**
+     * The config key (extension-free filename) used to look up this config from sources.
+     *
+     * @return the config key
+     */
     String value();
 }

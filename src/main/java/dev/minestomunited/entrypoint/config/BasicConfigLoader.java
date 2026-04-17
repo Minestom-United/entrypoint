@@ -36,7 +36,6 @@ public class BasicConfigLoader implements ConfigLoader {
         if (initialized) {
             LOGGER.debug("ConfigFormat changed post-init — reloading all configs");
             for (Map.Entry<Class<? extends Config>, @Nullable Config> entry : defaults.entrySet()) {
-                //noinspection unchecked
                 loadConfig(entry.getKey(), entry.getValue(), format);
             }
         }
@@ -62,12 +61,12 @@ public class BasicConfigLoader implements ConfigLoader {
     @Override
     public ConfigLoader initialize(String[] args) {
         if (initialized) {
-            throw new IllegalStateException("ConfigLoader already initialized — register() new configs after initialize() instead");
+            throw new IllegalStateException(
+                    "ConfigLoader already initialized — register() new configs after initialize() instead");
         }
         ConfigFormat fmt = (format != null) ? format : new NoopConfigFormat();
 
         for (Map.Entry<Class<? extends Config>, @Nullable Config> entry : defaults.entrySet()) {
-            //noinspection unchecked
             loadConfig(entry.getKey(), entry.getValue(), fmt);
         }
 
@@ -82,7 +81,6 @@ public class BasicConfigLoader implements ConfigLoader {
         return Optional.ofNullable(config);
     }
 
-    @SuppressWarnings("unchecked")
     private <C extends Config> void loadConfig(Class<? extends Config> clazz, @Nullable Config defaultInstance) {
         ConfigFormat fmt = Objects.requireNonNull(format,
                 "loadConfig called without a ConfigFormat — this is a bug");
@@ -90,7 +88,8 @@ public class BasicConfigLoader implements ConfigLoader {
     }
 
     @SuppressWarnings("unchecked")
-    private <C extends Config> void loadConfig(Class<? extends Config> clazz, @Nullable Config defaultInstance, ConfigFormat fmt) {
+    private <C extends Config> void loadConfig(
+            Class<? extends Config> clazz, @Nullable Config defaultInstance, ConfigFormat fmt) {
         @Nullable Config resolved = defaultInstance;
         String key = resolveKey(clazz);
 
@@ -102,13 +101,16 @@ public class BasicConfigLoader implements ConfigLoader {
             try (InputStream in = data.get()) {
                 @Nullable C deserialized = fmt.deserialize((Class<C>) clazz, in);
                 if (deserialized == null) {
-                    LOGGER.warn("ConfigFormat returned null for {} from {} — skipping source", clazz.getSimpleName(), source.getClass().getSimpleName());
+                    LOGGER.warn("ConfigFormat returned null for {} from {} — skipping source",
+                            clazz.getSimpleName(), source.getClass().getSimpleName());
                     continue;
                 }
                 resolved = deserialized;
-                LOGGER.debug("Loaded {} from {} (priority {})", clazz.getSimpleName(), source.getClass().getSimpleName(), source.priority());
+                LOGGER.debug("Loaded {} from {} (priority {})",
+                        clazz.getSimpleName(), source.getClass().getSimpleName(), source.priority());
             } catch (IOException e) {
-                LOGGER.warn("Failed to load {} from {} — skipping source", clazz.getSimpleName(), source.getClass().getSimpleName(), e);
+                LOGGER.warn("Failed to load {} from {} — skipping source",
+                        clazz.getSimpleName(), source.getClass().getSimpleName(), e);
             }
         }
 

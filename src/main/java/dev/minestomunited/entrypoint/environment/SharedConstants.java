@@ -5,15 +5,16 @@ import java.util.UUID;
 /**
  * Server-wide constants resolved from environment variables at startup.
  */
-public class SharedConstants {
+public final class SharedConstants {
 
-    public final static Environment ENVIRONMENT = getFromEnumOrDefault("ENVIRONMENT", Environment.PRODUCTION);
-    public final static String PROXIED_SECRET = getEnvOrDefault("VELOCITY_SECRET", "secret");
-    public final static String HOSTNAME = getHostName();
+    public static final Environment ENVIRONMENT = getFromEnumOrDefault("ENVIRONMENT", Environment.PRODUCTION);
+    public static final String PROXIED_SECRET = getEnvOrDefault("VELOCITY_SECRET", "secret");
+    public static final String HOSTNAME = getHostName();
 
 
     static <T extends Enum<T>> T getFromEnumOrDefault(String key, T defaultValue) {
-        return Enum.valueOf(defaultValue.getDeclaringClass(), System.getenv().getOrDefault(key.toUpperCase(), defaultValue.name()));
+        return Enum.valueOf(defaultValue.getDeclaringClass(),
+                System.getenv().getOrDefault(key.toUpperCase(), defaultValue.name()));
     }
 
     static String getEnvOrDefault(String key, String defaultValue) {
@@ -29,7 +30,8 @@ public class SharedConstants {
             return System.getenv("HOSTNAME");
         } else if (ENVIRONMENT.test(Environment.TESTING)) {
             // No HOSTNAME env var in local/test — generate a random identifier
-            return "dev-" + UUID.randomUUID().toString().substring(0, 5) + "-" + UUID.randomUUID().toString().substring(0, 5);
+            return "dev-" + UUID.randomUUID().toString().substring(0, 5)
+                    + "-" + UUID.randomUUID().toString().substring(0, 5);
         }
 
         throw new IllegalStateException("Hostname could not be found");

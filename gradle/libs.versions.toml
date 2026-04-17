@@ -3,6 +3,7 @@ minestom = "2026.04.13-1.21.11"
 lombok = "9.2.0"
 shadow = "9.4.1"
 slf4j = "2.0.17"
+spotless = "6.25.0"
 
 [libraries]
 minestom = { module = "net.minestom:minestom", version.ref = "minestom" }
@@ -12,4 +13,5 @@ logging-impl = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 [plugins]
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 

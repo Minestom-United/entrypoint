@@ -61,7 +61,9 @@ public interface SessionService {
                 String ip,
                 @Nullable String proxy,
                 String version) {
-            return new PlayerSession.Generic(uuid, username, playerSkin, Instant.now(), ip, proxy, SharedConstants.HOSTNAME, version);
+            return new PlayerSession.Generic(
+                    uuid, username, playerSkin, Instant.now(),
+                    ip, proxy, SharedConstants.HOSTNAME, version);
         }
 
         @Override

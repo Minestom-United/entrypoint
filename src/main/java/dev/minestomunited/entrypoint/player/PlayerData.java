@@ -10,38 +10,38 @@ import java.util.UUID;
  */
 public interface PlayerData {
 
-    Tag<PlayerData> TAG = Tag.Transient("player_data"); // TODO - validate if this persists "enough"
+    Tag<PlayerData> TAG = Tag.Transient("player_data");
 
     /**
-     * The online player's uuid
+     * The online player's uuid.
      *
      * @return the uuid
      */
     UUID uuid();
 
     /**
-     * The online player's username
+     * The online player's username.
      *
      * @return the username
      */
     String username();
 
     /**
-     * The online player's skin
+     * The online player's skin.
      *
      * @return the skin
      */
     PlayerSkin playerSkin();
 
     /**
-     * The online player's ip
+     * The online player's ip.
      *
      * @return the ip
      */
     String ip();
 
     /**
-     * The online player's proxy, null if not connected via proxy
+     * The online player's proxy, null if not connected via proxy.
      *
      * @return the proxy id or null
      */
@@ -49,7 +49,7 @@ public interface PlayerData {
     String proxy();
 
     /**
-     * The online player's version
+     * The online player's version.
      *
      * @return the version
      */

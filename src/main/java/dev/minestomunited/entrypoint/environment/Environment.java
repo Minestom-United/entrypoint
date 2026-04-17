@@ -21,7 +21,9 @@ public enum Environment {
      * @return {@code true} if this environment meets the requirement
      */
     public boolean test(Environment environment) {
-        if (this == ANY) return true;
+        if (this == ANY) {
+            return true;
+        }
 
         return switch (environment) {
             case PRODUCTION -> this == PRODUCTION || this == DEPLOYING;
