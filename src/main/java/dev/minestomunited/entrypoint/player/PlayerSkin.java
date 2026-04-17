@@ -11,6 +11,12 @@ import org.jetbrains.annotations.Nullable;
  */
 public record PlayerSkin(String textures, String signature) {
 
+    /**
+     * Converts a Minestom {@link net.minestom.server.entity.PlayerSkin} to a {@link PlayerSkin}.
+     *
+     * @param minestomSkin the Minestom skin, or {@code null}
+     * @return the converted skin, or {@code null} if the input was {@code null}
+     */
     @Contract(pure = true, value = "null -> null")
     public static @Nullable PlayerSkin fromMinestom(@Nullable net.minestom.server.entity.PlayerSkin minestomSkin) {
         if (minestomSkin == null) {

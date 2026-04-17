@@ -10,12 +10,17 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class MemorySessionService implements SessionService{
+public class MemorySessionService implements SessionService {
+
     private final Map<UUID, PlayerSession> sessions = new ConcurrentHashMap<>();
 
     @Override
-    public PlayerSession createSession(UUID uuid, String username, PlayerSkin playerSkin, String ip, @Nullable String proxy, String version) {
-        PlayerSession session = new PlayerSession.Generic(uuid, username, playerSkin, Instant.now(), ip, proxy, SharedConstants.HOSTNAME, version);
+    public PlayerSession createSession(
+            UUID uuid, String username, @Nullable PlayerSkin playerSkin,
+            String ip, @Nullable String proxy, String version) {
+        PlayerSession session = new PlayerSession.Generic(
+                uuid, username, playerSkin, Instant.now(),
+                ip, proxy, SharedConstants.HOSTNAME, version);
         sessions.put(uuid, session);
         return session;
     }

@@ -1,6 +1,6 @@
 package dev.minestomunited.entrypoint;
 
-import dev.minestomunited.entrypoint.config.ConfigLoader;
+import dev.minestomunited.entrypoint.config.ConfigRegistry;
 import dev.minestomunited.entrypoint.minestom.BasicMinestomService;
 import dev.minestomunited.entrypoint.minestom.MinestomService;
 import dev.minestomunited.entrypoint.minestom.player.BasicNetworkPlayer;
@@ -15,11 +15,11 @@ public class DemoServer extends AbstractMinestomServer {
     private final PlayerService playerService;
     private final MinestomService<BasicNetworkPlayer> minestomService;
 
-    protected DemoServer(ConfigLoader config) {
-        super(config);
+    protected DemoServer(ConfigRegistry registry) {
+        super(registry);
         sessionService = new MemorySessionService();
         playerService = new PlayerServiceImpl();
-        minestomService = new BasicMinestomService<>(config, sessionService, playerService, BasicNetworkPlayer::new);
+        minestomService = new BasicMinestomService<>(registry, sessionService, playerService, BasicNetworkPlayer::new);
     }
 
     @Override

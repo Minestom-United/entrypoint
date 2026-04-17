@@ -12,13 +12,14 @@ import org.jetbrains.annotations.Blocking;
 public interface MinestomService<P extends Player & NetworkPlayer> {
 
     /**
-     * Constructs the MinestomServer, and passes Auth as required, also loads registries
+     * Constructs the MinestomServer, passes Auth, and loads registries.
+     *
      * @param auth the authentication for the server
      */
     void setup(Auth auth);
 
     /**
-     * Starts the MinestomServer
+     * Starts the MinestomServer.
      */
     void run();
 

@@ -33,13 +33,13 @@ public final class EntryPoint {
         private ConfigLoader configLoader;
         private Function<ConfigRegistry, ? extends AbstractMinestomServer> serverFactory;
 
-        private Consumer<ConfigRegistry> onConfigLoaded = registry -> {
+        private Consumer<ConfigRegistry> onConfigLoaded = _ -> {
         };
-        private Consumer<AbstractMinestomServer> beforeSetup = server -> {
+        private Consumer<AbstractMinestomServer> beforeSetup = _ -> {
         };
-        private Consumer<AbstractMinestomServer> afterSetup = server -> {
+        private Consumer<AbstractMinestomServer> afterSetup = _ -> {
         };
-        private Consumer<AbstractMinestomServer> afterStartup = server -> {
+        private Consumer<AbstractMinestomServer> afterStartup = _ -> {
         };
 
         private Builder() {
@@ -114,12 +114,17 @@ public final class EntryPoint {
             return this;
         }
 
+        /**
+         * Loads configuration, instantiates the server, and starts it.
+         *
+         * @param args CLI arguments passed to {@code main}
+         */
         public void run(String[] args) {
             if (serverFactory == null) {
                 throw new IllegalStateException("No server factory provided — call .server() on the builder");
             }
 
-            long start = System.currentTimeMillis();
+            final long start = System.currentTimeMillis();
 
             ConfigLoader loader = (configLoader != null) ? configLoader : new BasicConfigLoader();
             formats.forEach(loader::withFormat);

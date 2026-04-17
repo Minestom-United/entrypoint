@@ -1,9 +1,9 @@
 package dev.minestomunited.entrypoint.server;
 
-import dev.minestomunited.entrypoint.config.ConfigLoader;
+import dev.minestomunited.entrypoint.config.ConfigRegistry;
 
 public abstract class AbstractMinestomServer implements MinestomServer {
 
-    protected AbstractMinestomServer(ConfigLoader config) {
+    protected AbstractMinestomServer(ConfigRegistry registry) {
     }
 }

@@ -3,12 +3,13 @@ package dev.minestomunited.entrypoint.config.soruce;
 import dev.minestomunited.entrypoint.config.ConfigSource;
 import org.jspecify.annotations.NonNull;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Optional;
 
 public final class EnvironmentVariableConfigSource implements ConfigSource {
 
-    private final static String ENVIRONMENT_PREFIX = "MINESTOM_";
+    private static final String ENVIRONMENT_PREFIX = "MINESTOM_";
 
     @Override
     public @NonNull Optional<InputStream> read(String key) {
@@ -18,7 +19,7 @@ public final class EnvironmentVariableConfigSource implements ConfigSource {
             return Optional.empty();
         }
 
-        return Optional.of(new java.io.ByteArrayInputStream(value.getBytes()));
+        return Optional.of(new ByteArrayInputStream(value.getBytes()));
     }
 
     @Override

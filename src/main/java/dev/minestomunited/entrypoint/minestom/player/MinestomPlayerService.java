@@ -20,6 +20,14 @@ import java.util.concurrent.CompletableFuture;
 
 public class MinestomPlayerService<P extends Player & NetworkPlayer> {
 
+    /**
+     * Wires all Minestom player lifecycle events to the given services.
+     *
+     * @param eventNode      the global event node to attach listeners to
+     * @param sessionService the session service for tracking online players
+     * @param playerService  the player service for loading and persisting player data
+     * @param playerProvider factory that instantiates the typed player object per connection
+     */
     public MinestomPlayerService(EventNode<Event> eventNode, SessionService sessionService,
                                  PlayerService playerService, MinestomPlayerProvider<P> playerProvider) {
         eventNode
@@ -32,17 +40,20 @@ public class MinestomPlayerService<P extends Player & NetworkPlayer> {
                     }
                     playerService.unloadPlayerData(playerId);
                 })
-                .addListener(AsyncPlayerPreLoginEvent.class, event ->{
+                .addListener(AsyncPlayerPreLoginEvent.class, event -> {
                     final UUID playerId = event.getGameProfile().uuid();
-                    CompletableFuture.runAsync(()->{
-                        playerService.loadPlayerData(playerId); // TODO(Trop) - consider using CompletableFuture specifically for Services so we can have time outs and background ah stuff
+                    CompletableFuture.runAsync(() -> {
+                        // TODO(Trop) - consider using CompletableFuture specifically for Services
+                        //   so we can have time outs and background handling
                         // TODO - dont load every time, have a cache / debounce system
+                        playerService.loadPlayerData(playerId);
                     });
                 })
                 .addListener(AsyncPlayerConfigurationEvent.class, event -> {
                     final Player player = event.getPlayer();
                     final UUID playerId = player.getUuid();
-                    PlayerData playerData = playerService.loadPlayerData(playerId); // Trop: i dont like this, we call it twice, but fuck it for now :)
+                    // TODO(Trop) - we call loadPlayerData twice (once in pre-login), needs a cache
+                    PlayerData playerData = playerService.loadPlayerData(playerId);
                     if (playerData == null) {
                         // TODO - implement creating of player data here :)
                         return;
@@ -54,7 +65,11 @@ public class MinestomPlayerService<P extends Player & NetworkPlayer> {
                     UUID playerId = player.getUuid();
                     // TODO - validate that player skin is set now? it may be set between configure and play state
                     // TODO - get proxy somehow? plugin messages?
-                    sessionService.createSession(playerId, player.getUsername(), PlayerSkin.fromMinestom(player.getSkin()), player.getPlayerConnection().getRemoteAddress().toString(), "unknown", MinecraftServer.VERSION_NAME);
+                    sessionService.createSession(
+                            playerId, player.getUsername(),
+                            PlayerSkin.fromMinestom(player.getSkin()),
+                            player.getPlayerConnection().getRemoteAddress().toString(),
+                            "unknown", MinecraftServer.VERSION_NAME);
                 })
         ;
         MinecraftServer.getConnectionManager().setPlayerProvider(playerProvider::createPlayer);
@@ -66,12 +81,12 @@ public class MinestomPlayerService<P extends Player & NetworkPlayer> {
 
         /**
          * Creates a new {@link P} object based on his connection data.
-         * <p>
-         * Called once a client want to join the server and need to have an assigned player object.
+         *
+         * <p>Called once a client wants to join the server and needs an assigned player object.
          *
          * @param connection  the player connection
          * @param gameProfile the player game profile
-         * @return a newly create {@link P} object
+         * @return a newly created {@link P} object
          */
         P createPlayer(PlayerConnection connection, GameProfile gameProfile);
     }

@@ -1,6 +1,6 @@
 package dev.minestomunited.entrypoint.minestom;
 
-import dev.minestomunited.entrypoint.config.ConfigLoader;
+import dev.minestomunited.entrypoint.config.ConfigRegistry;
 import dev.minestomunited.entrypoint.config.impl.ServerConfig;
 import dev.minestomunited.entrypoint.minestom.player.MinestomPlayerService;
 import dev.minestomunited.entrypoint.minestom.player.NetworkPlayer;
@@ -15,15 +15,26 @@ import net.minestom.server.event.EventNode;
 public class BasicMinestomService<P extends Player & NetworkPlayer> implements MinestomService<P> {
 
     private MinecraftServer server = null;
-    private final ConfigLoader configLoader;
+    private final ConfigRegistry registry;
     private final MinestomPlayerService.MinestomPlayerProvider<P> playerProvider;
     private final SessionService sessionService;
     private final PlayerService playerService;
     private MinestomPlayerService<P> minestomPlayerService = null;
 
-    public BasicMinestomService(ConfigLoader configLoader, SessionService sessionService,
-                                PlayerService playerService, MinestomPlayerService.MinestomPlayerProvider<P> playerProvider) {
-        this.configLoader = configLoader;
+    /**
+     * Creates a new service backed by the given registry and supporting services.
+     *
+     * @param registry       the config registry used to resolve startup configuration
+     * @param sessionService the session service for tracking online players
+     * @param playerService  the player service for loading and persisting player data
+     * @param playerProvider factory that instantiates the player object per connection
+     */
+    public BasicMinestomService(
+            ConfigRegistry registry,
+            SessionService sessionService,
+            PlayerService playerService,
+            MinestomPlayerService.MinestomPlayerProvider<P> playerProvider) {
+        this.registry = registry;
         this.sessionService = sessionService;
         this.playerService = playerService;
         this.playerProvider = playerProvider;
@@ -43,14 +54,14 @@ public class BasicMinestomService<P extends Player & NetworkPlayer> implements M
         if (server == null) {
             throw new IllegalStateException("server not setup, did you forget to call setup()?");
         }
-        ServerConfig serverConfig = configLoader.get(ServerConfig.class)
+        ServerConfig serverConfig = registry.get(ServerConfig.class)
                 .orElseThrow(() -> new IllegalStateException("ServerConfig not loaded"));
         server.start(serverConfig.host(), serverConfig.port());
     }
 
     @Override
     public EventNode<Event> eventNode() {
-        if(server == null) {
+        if (server == null) {
             throw new IllegalStateException("server not setup, did you forget to call setup()?");
         }
         return MinecraftServer.getGlobalEventHandler();
