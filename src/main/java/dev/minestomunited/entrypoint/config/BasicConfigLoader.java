@@ -6,13 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Basic {@link ConfigLoader} implementation provided by the entrypoint library.
@@ -43,7 +37,7 @@ public class BasicConfigLoader implements ConfigLoader {
             LOGGER.debug("ConfigFormat changed post-init — reloading all configs");
             for (Map.Entry<Class<? extends Config>, @Nullable Config> entry : defaults.entrySet()) {
                 //noinspection unchecked
-                loadConfig((Class<? extends Config>) entry.getKey(), entry.getValue(), format);
+                loadConfig(entry.getKey(), entry.getValue(), format);
             }
         }
         return this;
@@ -70,12 +64,11 @@ public class BasicConfigLoader implements ConfigLoader {
         if (initialized) {
             throw new IllegalStateException("ConfigLoader already initialized — register() new configs after initialize() instead");
         }
-        ConfigFormat fmt = Objects.requireNonNull(format,
-                "No ConfigFormat set — call withFormat() before initialize()");
+        ConfigFormat fmt = (format != null) ? format : new NoopConfigFormat();
 
         for (Map.Entry<Class<? extends Config>, @Nullable Config> entry : defaults.entrySet()) {
             //noinspection unchecked
-            loadConfig((Class<? extends Config>) entry.getKey(), entry.getValue(), fmt);
+            loadConfig(entry.getKey(), entry.getValue(), fmt);
         }
 
         initialized = true;
@@ -121,6 +114,22 @@ public class BasicConfigLoader implements ConfigLoader {
 
         loaded.put(clazz, resolved);
         LOGGER.info("Config {} resolved", clazz.getSimpleName());
+    }
+
+    @Override
+    public ConfigRegistry asRegistry() {
+        if (!initialized) {
+            throw new IllegalStateException("ConfigLoader not yet initialized — call initialize() before asRegistry()");
+        }
+        // Snapshot the loaded map at this point in time
+        Map<Class<? extends Config>, @Nullable Config> snapshot = Map.copyOf(loaded);
+        return new ConfigRegistry() {
+            @Override
+            @SuppressWarnings("unchecked")
+            public <C extends Config> Optional<C> get(Class<C> clazz) {
+                return Optional.ofNullable((C) snapshot.get(clazz));
+            }
+        };
     }
 
     private static String resolveKey(Class<? extends Config> clazz) {
