@@ -5,6 +5,7 @@ import dev.minestomunited.entrypoint.config.impl.AuthConfig;
 import dev.minestomunited.entrypoint.config.impl.ServerConfig;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
 import net.minestom.server.Auth;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +31,8 @@ public final class EntryPoint {
 
         private final List<ConfigFormat> formats = new ArrayList<>();
         private final Map<Class<?>, Object> defaults = new LinkedHashMap<>();
-        private ConfigLoader configLoader;
-        private Function<ConfigRegistry, ? extends AbstractMinestomServer> serverFactory;
+        private @Nullable ConfigLoader configLoader;
+        private @Nullable Function<ConfigRegistry, ? extends AbstractMinestomServer> serverFactory;
 
         private Consumer<ConfigRegistry> onConfigLoaded = _ -> {
         };
