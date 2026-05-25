@@ -4,7 +4,6 @@ import dev.minestomunited.entrypoint.config.ConfigSource;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Optional;
-
 import org.jspecify.annotations.NonNull;
 
 public final class EnvironmentVariableConfigSource implements ConfigSource {
