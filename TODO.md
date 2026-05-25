@@ -26,8 +26,8 @@
         - [ ] Guild
     - [ ] Parties
     - [ ] "Guilds"
-- [ ] Networking System
-    - [ ] ways to communicate between servers (SECURELY!)
-    - [ ] accessible interface for other services and features to utilise
+- [x] Networking System
+    - [x] ways to communicate between servers (SECURELY!)
+    - [x] accessible interface for other services and features to utilise
 - [ ] Orchistration
     - [ ] IDK tbh 
