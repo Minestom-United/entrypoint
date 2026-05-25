@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
 import net.minestom.server.Auth;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;

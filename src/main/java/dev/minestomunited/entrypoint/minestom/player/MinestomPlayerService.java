@@ -4,7 +4,6 @@ import dev.minestomunited.entrypoint.player.PlayerData;
 import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.player.PlayerSkin;
 import dev.minestomunited.entrypoint.session.SessionService;
-
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import net.minestom.server.MinecraftServer;

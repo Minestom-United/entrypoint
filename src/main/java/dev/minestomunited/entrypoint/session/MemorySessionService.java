@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.jspecify.annotations.Nullable;
 
 public class MemorySessionService implements SessionService {
