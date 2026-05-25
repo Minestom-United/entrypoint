@@ -6,7 +6,6 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import net.kyori.adventure.util.Services.Fallback;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,7 +49,7 @@ public interface SessionService {
     Collection<PlayerSession> sync();
 
     @SuppressWarnings("unused")
-    class Noop implements SessionService, Fallback {
+    class Noop implements SessionService {
 
         @Override
         public PlayerSession createSession(
