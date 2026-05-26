@@ -1,11 +1,11 @@
 package dev.minestomunited.entrypoint.session;
 
 import dev.minestomunited.entrypoint.environment.SharedConstants;
-import dev.minestomunited.entrypoint.player.PlayerSkin;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import net.minestom.server.entity.PlayerSkin;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,7 +46,7 @@ public interface SessionService {
      *
      * @return collection of active {@link PlayerSession}s
      */
-    Collection<PlayerSession> sync();
+    Collection<? extends PlayerSession> sync();
 
     @SuppressWarnings("unused")
     class Noop implements SessionService {

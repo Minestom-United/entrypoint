@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import net.minestom.server.Auth;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,8 @@ public final class EntryPoint {
     public static final class Builder {
 
         private final List<ConfigFormat> formats = new ArrayList<>();
-        private final Map<Class<?>, Object> defaults = new LinkedHashMap<>();
+        private final List<ConfigSource> sources = new ArrayList<>();
+        private final Map<Class<?>, @Nullable Object> defaults = new LinkedHashMap<>();
         private @Nullable ConfigLoader configLoader;
         private @Nullable Function<ConfigRegistry, ? extends AbstractMinestomServer> serverFactory;
 
@@ -64,11 +65,25 @@ public final class EntryPoint {
             return this;
         }
 
+        public Builder configSource(ConfigSource source) {
+            this.sources.add(source);
+            return this;
+        }
+
+        /**
+         * Register a config type
+         * Overrides the framework default for that type if one exists.
+         */
+        public <T> Builder registerConfig(Class<T> type) {
+            defaults.put(type, null);
+            return this;
+        }
+
         /**
          * Register a config type with a default value.
          * Overrides the framework default for that type if one exists.
          */
-        public <T> Builder register(Class<T> type, T defaultValue) {
+        public <T> Builder registerConfig(Class<T> type, @Nullable T defaultValue) {
             defaults.put(type, defaultValue);
             return this;
         }
@@ -128,6 +143,7 @@ public final class EntryPoint {
 
             ConfigLoader loader = (configLoader != null) ? configLoader : new BasicConfigLoader();
             formats.forEach(loader::withFormat);
+            sources.forEach(loader::addSource);
             registerDefaults(loader);
             loader.initialize(args);
 

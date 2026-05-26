@@ -17,7 +17,7 @@ public class DemoMain {
     static void main(String[] args) {
         EntryPoint
                 .builder()
-                .register(DemoConfig.class, new DemoConfig("A Minestom Server", 100))
+                .registerConfig(DemoConfig.class, new DemoConfig("A Minestom Server", 100))
                 .onConfigLoaded(registry -> {
                     ServerConfig server = registry.get(ServerConfig.class).orElseThrow();
                     DemoConfig demo = registry.get(DemoConfig.class).orElseThrow();

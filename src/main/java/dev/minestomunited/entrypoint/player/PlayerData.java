@@ -1,6 +1,7 @@
 package dev.minestomunited.entrypoint.player;
 
 import java.util.UUID;
+import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.tag.Tag;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,14 +39,6 @@ public interface PlayerData {
      * @return the ip
      */
     String ip();
-
-    /**
-     * The online player's proxy, null if not connected via proxy.
-     *
-     * @return the proxy id or null
-     */
-    @Nullable
-    String proxy();
 
     /**
      * The online player's version.

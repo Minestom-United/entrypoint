@@ -6,6 +6,16 @@ import org.jetbrains.annotations.Nullable;
 
 @Blocking
 public interface PlayerService {
+    /**
+     * Loads player data from the database.
+     *
+     * <p>Returns {@code null} if no data exists for the given player.
+     *
+     * @param playerId uuid of the player
+     * @return the player data, or {@code null} if not found
+     */
+    @Nullable
+    PlayerData loadPlayerData(UUID playerId);
 
     /**
      * Updates the player data in the database.
@@ -20,15 +30,4 @@ public interface PlayerService {
      * @param playerId uuid of the player to unload
      */
     void unloadPlayerData(UUID playerId);
-
-    /**
-     * Loads player data from the database.
-     *
-     * <p>Returns {@code null} if no data exists for the given player.
-     *
-     * @param playerId uuid of the player
-     * @return the player data, or {@code null} if not found
-     */
-    @Nullable
-    PlayerData loadPlayerData(UUID playerId);
 }

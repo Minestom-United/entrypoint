@@ -1,8 +1,15 @@
 package dev.minestomunited.entrypoint.config;
 
+import dev.minestomunited.entrypoint.config.format.NoopConfigFormat;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,7 +119,10 @@ public class BasicConfigLoader implements ConfigLoader {
                         clazz.getSimpleName(), source.getClass().getSimpleName(), e);
             }
         }
-
+        if (resolved == null) {
+            throw new IllegalStateException(
+                    "Config " + clazz.getSimpleName() + " does not have a default, and was unable to deserialize!");
+        }
         loaded.put(clazz, resolved);
         LOGGER.info("Config {} resolved", clazz.getSimpleName());
     }

@@ -2,7 +2,6 @@ package dev.minestomunited.entrypoint.minestom.player;
 
 import dev.minestomunited.entrypoint.player.PlayerData;
 import dev.minestomunited.entrypoint.player.PlayerService;
-import dev.minestomunited.entrypoint.player.PlayerSkin;
 import dev.minestomunited.entrypoint.session.SessionService;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -66,7 +65,7 @@ public class MinestomPlayerService<P extends Player & NetworkPlayer> {
                     // TODO - get proxy somehow? plugin messages?
                     sessionService.createSession(
                             playerId, player.getUsername(),
-                            PlayerSkin.fromMinestom(player.getSkin()),
+                            player.getSkin(),
                             player.getPlayerConnection().getRemoteAddress().toString(),
                             "unknown", MinecraftServer.VERSION_NAME);
                 })
