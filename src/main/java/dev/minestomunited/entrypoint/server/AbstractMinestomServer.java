@@ -1,6 +1,8 @@
 package dev.minestomunited.entrypoint.server;
 
+import dev.minestomunited.entrypoint.config.Config;
 import dev.minestomunited.entrypoint.config.ConfigRegistry;
+import java.util.Optional;
 
 public abstract class AbstractMinestomServer implements MinestomServer {
 
@@ -13,5 +15,13 @@ public abstract class AbstractMinestomServer implements MinestomServer {
     @Override
     public ConfigRegistry configRegistry() {
         return registry;
+    }
+
+    public <C extends Config> Optional<C> getConfig(Class<C> clazz) {
+        return registry.get(clazz);
+    }
+
+    public <C extends Config> C getConfigOrThrow(Class<C> clazz) {
+        return registry.get(clazz).orElseThrow();
     }
 }

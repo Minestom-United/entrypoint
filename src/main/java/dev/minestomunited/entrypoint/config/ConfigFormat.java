@@ -35,8 +35,8 @@ public interface ConfigFormat {
      * @param in   the raw data stream
      * @param <C>  the config type
      * @return populated config instance, or {@code null} if the data could not be mapped
-     *         (e.g. empty stream, missing required fields). The loader will skip null results
-     *         and fall back to the previously resolved value or registered default.
+     * (e.g. empty stream, missing required fields). The loader will skip null results
+     * and fall back to the previously resolved value or registered default.
      * @throws IOException on read or parse failure
      */
     @Nullable <C extends Config> C deserialize(Class<C> type, InputStream in) throws IOException;
@@ -48,5 +48,5 @@ public interface ConfigFormat {
      * @param out    the target stream
      * @throws IOException on write failure
      */
-    void serialize(Config config, OutputStream out) throws IOException;
+    <C extends Config> void serialize(C config, OutputStream out) throws IOException;
 }

@@ -13,25 +13,32 @@ import net.minestom.server.codec.Transcoder;
 import org.jspecify.annotations.Nullable;
 
 public class JsonCodecConfigFormat implements ConfigFormat {
-    private final Map<Class<?>, Codec<?>> codecs;
+    private final Map<Class<? extends Config>, Codec<? extends Config>> codecs;
 
-    public JsonCodecConfigFormat(Map<Class<?>, Codec<?>> codecs) {
+    public JsonCodecConfigFormat(Map<Class<? extends Config>, Codec<? extends Config>> codecs) {
         this.codecs = codecs;
     }
 
     @Override
     public @Nullable <C extends Config> C deserialize(Class<C> type, InputStream in) {
-        Codec<?> codec = codecs.get(type);
+        //noinspection unchecked
+        Codec<C> codec = (Codec<C>) codecs.get(type);
         if (codec == null) {
             return null;
         }
-        //noinspection unchecked
-        return (C) codec.decode(Transcoder.JSON, JsonParser.parseReader(new InputStreamReader(in)))
-                .orElseThrow("Failed to decode json");
+        return codec.decode(Transcoder.JSON, JsonParser.parseReader(new InputStreamReader(in)))
+                .orElseThrow("Failed to decode json for config " + type.getName());
     }
 
     @Override
-    public void serialize(Config config, OutputStream out) throws IOException {
-
+    public <C extends Config> void serialize(C config, OutputStream out) throws IOException {
+        //noinspection unchecked
+        Codec<C> codec = (Codec<C>) codecs.get(config.getClass());
+        if (codec == null) {
+            return;
+        }
+        String json = codec.encode(Transcoder.JSON, config)
+                .orElseThrow("Failed to decode json for config " + codec.getClass().getName()).toString();
+        out.write(json.getBytes());
     }
 }

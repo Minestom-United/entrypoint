@@ -1,6 +1,11 @@
 package dev.minestomunited.entrypoint;
 
-import dev.minestomunited.entrypoint.config.*;
+import dev.minestomunited.entrypoint.config.BasicConfigLoader;
+import dev.minestomunited.entrypoint.config.Config;
+import dev.minestomunited.entrypoint.config.ConfigFormat;
+import dev.minestomunited.entrypoint.config.ConfigLoader;
+import dev.minestomunited.entrypoint.config.ConfigRegistry;
+import dev.minestomunited.entrypoint.config.ConfigSource;
 import dev.minestomunited.entrypoint.config.impl.AuthConfig;
 import dev.minestomunited.entrypoint.config.impl.ServerConfig;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
@@ -22,36 +27,36 @@ public final class EntryPoint {
     private EntryPoint() {
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public static <S extends AbstractMinestomServer> Builder<S> builder() {
+        return new Builder<>();
     }
 
-    public static final class Builder {
+    public static final class Builder<S extends AbstractMinestomServer> {
 
         private final List<ConfigFormat> formats = new ArrayList<>();
         private final List<ConfigSource> sources = new ArrayList<>();
         private final Map<Class<?>, @Nullable Object> defaults = new LinkedHashMap<>();
         private @Nullable ConfigLoader configLoader;
-        private @Nullable Function<ConfigRegistry, ? extends AbstractMinestomServer> serverFactory;
+        private @Nullable Function<ConfigRegistry, ? extends S> serverFactory;
 
         private Consumer<ConfigRegistry> onConfigLoaded = _ -> {
         };
-        private Consumer<AbstractMinestomServer> beforeSetup = _ -> {
+        private Consumer<S> beforeSetup = _ -> {
         };
-        private Consumer<AbstractMinestomServer> afterSetup = _ -> {
+        private Consumer<S> afterSetup = _ -> {
         };
-        private Consumer<AbstractMinestomServer> afterStartup = _ -> {
+        private Consumer<S> afterStartup = _ -> {
         };
 
         private Builder() {
-            defaults.put(AuthConfig.class, new AuthConfig(new Auth.Offline()));
+            defaults.put(AuthConfig.class, new AuthConfig(new Auth.Online()));
             defaults.put(ServerConfig.class, new ServerConfig("0.0.0.0", 25565));
         }
 
         /**
          * Override the config loader. Defaults to {@link BasicConfigLoader} if not set.
          */
-        public Builder configLoader(ConfigLoader loader) {
+        public Builder<S> configLoader(ConfigLoader loader) {
             this.configLoader = loader;
             return this;
         }
@@ -60,12 +65,12 @@ public final class EntryPoint {
          * Add a config format. Formats are applied in registration order;
          * later formats take priority over earlier ones on key conflicts.
          */
-        public Builder configFormat(ConfigFormat format) {
+        public Builder<S> configFormat(ConfigFormat format) {
             this.formats.add(format);
             return this;
         }
 
-        public Builder configSource(ConfigSource source) {
+        public Builder<S> configSource(ConfigSource source) {
             this.sources.add(source);
             return this;
         }
@@ -74,7 +79,7 @@ public final class EntryPoint {
          * Register a config type
          * Overrides the framework default for that type if one exists.
          */
-        public <T> Builder registerConfig(Class<T> type) {
+        public <T> Builder<S> registerConfig(Class<T> type) {
             defaults.put(type, null);
             return this;
         }
@@ -83,7 +88,7 @@ public final class EntryPoint {
          * Register a config type with a default value.
          * Overrides the framework default for that type if one exists.
          */
-        public <T> Builder registerConfig(Class<T> type, @Nullable T defaultValue) {
+        public <T> Builder<S> registerConfig(Class<T> type, @Nullable T defaultValue) {
             defaults.put(type, defaultValue);
             return this;
         }
@@ -92,7 +97,7 @@ public final class EntryPoint {
          * Provide the server implementation. The {@link ConfigRegistry} is
          * read-only and fully populated before this function is called.
          */
-        public Builder server(Function<ConfigRegistry, ? extends AbstractMinestomServer> factory) {
+        public Builder<S> server(Function<ConfigRegistry, ? extends S> factory) {
             this.serverFactory = factory;
             return this;
         }
@@ -100,7 +105,7 @@ public final class EntryPoint {
         /**
          * Called after configs are loaded, before the server is instantiated.
          */
-        public Builder onConfigLoaded(Consumer<ConfigRegistry> hook) {
+        public Builder<S> onConfigLoaded(Consumer<ConfigRegistry> hook) {
             this.onConfigLoaded = hook;
             return this;
         }
@@ -108,7 +113,7 @@ public final class EntryPoint {
         /**
          * Called after the server is instantiated, before {@code setup()} runs.
          */
-        public Builder beforeSetup(Consumer<AbstractMinestomServer> hook) {
+        public Builder<S> beforeSetup(Consumer<S> hook) {
             this.beforeSetup = hook;
             return this;
         }
@@ -116,7 +121,7 @@ public final class EntryPoint {
         /**
          * Called after {@code setup()} completes, before {@code run()} is called.
          */
-        public Builder afterSetup(Consumer<AbstractMinestomServer> hook) {
+        public Builder<S> afterSetup(Consumer<S> hook) {
             this.afterSetup = hook;
             return this;
         }
@@ -124,7 +129,7 @@ public final class EntryPoint {
         /**
          * Called after {@code run()} returns and the server is fully started.
          */
-        public Builder afterStartup(Consumer<AbstractMinestomServer> hook) {
+        public Builder<S> afterStartup(Consumer<S> hook) {
             this.afterStartup = hook;
             return this;
         }
@@ -150,7 +155,7 @@ public final class EntryPoint {
             ConfigRegistry registry = loader.asRegistry();
             onConfigLoaded.accept(registry);
 
-            AbstractMinestomServer server = serverFactory.apply(registry);
+            S server = serverFactory.apply(registry);
             beforeSetup.accept(server);
 
             AuthConfig authConfig = registry.get(AuthConfig.class)

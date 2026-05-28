@@ -1,6 +1,5 @@
 package dev.minestomunited.entrypoint.config;
 
-import dev.minestomunited.entrypoint.config.format.NoopConfigFormat;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -30,7 +28,7 @@ public class BasicConfigLoader implements ConfigLoader {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicConfigLoader.class);
 
-    private @Nullable ConfigFormat format;
+    private final List<ConfigFormat> formats = new ArrayList<>();
     private final List<ConfigSource> sources = new ArrayList<>();
     private final Map<Class<? extends Config>, @Nullable Config> defaults = new HashMap<>();
     private final Map<Class<? extends Config>, @Nullable Config> loaded = new HashMap<>();
@@ -38,11 +36,11 @@ public class BasicConfigLoader implements ConfigLoader {
 
     @Override
     public ConfigLoader withFormat(ConfigFormat format) {
-        this.format = format;
+        this.formats.add(format);
         if (initialized) {
             LOGGER.debug("ConfigFormat changed post-init — reloading all configs");
             for (Map.Entry<Class<? extends Config>, @Nullable Config> entry : defaults.entrySet()) {
-                loadConfig(entry.getKey(), entry.getValue(), format);
+                loadConfig(entry.getKey(), entry.getValue());
             }
         }
         return this;
@@ -70,10 +68,8 @@ public class BasicConfigLoader implements ConfigLoader {
             throw new IllegalStateException(
                     "ConfigLoader already initialized — register() new configs after initialize() instead");
         }
-        ConfigFormat fmt = (format != null) ? format : new NoopConfigFormat();
-
         for (Map.Entry<Class<? extends Config>, @Nullable Config> entry : defaults.entrySet()) {
-            loadConfig(entry.getKey(), entry.getValue(), fmt);
+            loadConfig(entry.getKey(), entry.getValue());
         }
 
         initialized = true;
@@ -87,15 +83,9 @@ public class BasicConfigLoader implements ConfigLoader {
         return Optional.ofNullable(config);
     }
 
-    private <C extends Config> void loadConfig(Class<? extends Config> clazz, @Nullable Config defaultInstance) {
-        ConfigFormat fmt = Objects.requireNonNull(format,
-                "loadConfig called without a ConfigFormat — this is a bug");
-        loadConfig(clazz, defaultInstance, fmt);
-    }
-
     @SuppressWarnings("unchecked")
     private <C extends Config> void loadConfig(
-            Class<? extends Config> clazz, @Nullable Config defaultInstance, ConfigFormat fmt) {
+            Class<? extends Config> clazz, @Nullable Config defaultInstance) {
         @Nullable Config resolved = defaultInstance;
         String key = resolveKey(clazz);
 
@@ -105,7 +95,13 @@ public class BasicConfigLoader implements ConfigLoader {
                 continue;
             }
             try (InputStream in = data.get()) {
-                @Nullable C deserialized = fmt.deserialize((Class<C>) clazz, in);
+                @Nullable C deserialized = null;
+                for (ConfigFormat format : formats) {
+                    deserialized = format.deserialize((Class<C>) clazz, in);
+                    if (deserialized != null) {
+                        break;
+                    }
+                }
                 if (deserialized == null) {
                     LOGGER.warn("ConfigFormat returned null for {} from {} — skipping source",
                             clazz.getSimpleName(), source.getClass().getSimpleName());

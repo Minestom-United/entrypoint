@@ -1,12 +1,12 @@
 package dev.minestomunited.entrypoint.session;
 
 import dev.minestomunited.entrypoint.environment.SharedConstants;
-import dev.minestomunited.entrypoint.player.PlayerSkin;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import net.minestom.server.entity.PlayerSkin;
 import org.jspecify.annotations.Nullable;
 
 public class MemorySessionService implements SessionService {

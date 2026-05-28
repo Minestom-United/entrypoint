@@ -4,6 +4,7 @@ import dev.minestomunited.entrypoint.config.ConfigRegistry;
 import dev.minestomunited.entrypoint.minestom.BasicMinestomService;
 import dev.minestomunited.entrypoint.minestom.MinestomService;
 import dev.minestomunited.entrypoint.minestom.player.BasicNetworkPlayer;
+import dev.minestomunited.entrypoint.player.MemoryPlayerService;
 import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
 import dev.minestomunited.entrypoint.session.MemorySessionService;
@@ -22,7 +23,7 @@ public class DemoServer extends AbstractMinestomServer {
         demoConfig = registry.get(DemoConfig.class)
                 .orElseThrow(() -> new IllegalStateException("DemoConfig not loaded"));
         sessionService = new MemorySessionService();
-        playerService = new PlayerServiceImpl();
+        playerService = new MemoryPlayerService();
         minestomService = new BasicMinestomService<>(
                 registry, sessionService, playerService, BasicNetworkPlayer::new);
     }
