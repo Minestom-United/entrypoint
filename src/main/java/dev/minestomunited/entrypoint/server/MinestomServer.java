@@ -4,6 +4,7 @@ import dev.minestomunited.entrypoint.config.ConfigRegistry;
 import dev.minestomunited.entrypoint.minestom.MinestomService;
 import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.session.SessionService;
+import net.minestom.server.Auth;
 
 /**
  * Central access point for server-level services.
@@ -19,4 +20,6 @@ public interface MinestomServer {
     MinestomService<?> minestomService();
 
     ConfigRegistry configRegistry();
+
+    Auth auth();
 }

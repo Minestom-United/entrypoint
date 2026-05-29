@@ -6,7 +6,6 @@ import dev.minestomunited.entrypoint.config.ConfigFormat;
 import dev.minestomunited.entrypoint.config.ConfigLoader;
 import dev.minestomunited.entrypoint.config.ConfigRegistry;
 import dev.minestomunited.entrypoint.config.ConfigSource;
-import dev.minestomunited.entrypoint.config.impl.AuthConfig;
 import dev.minestomunited.entrypoint.config.impl.ServerConfig;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import net.minestom.server.Auth;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +47,6 @@ public final class EntryPoint {
         };
 
         private Builder() {
-            defaults.put(AuthConfig.class, new AuthConfig(new Auth.Online()));
             defaults.put(ServerConfig.class, new ServerConfig("0.0.0.0", 25565));
         }
 
@@ -158,9 +155,7 @@ public final class EntryPoint {
             S server = serverFactory.apply(registry);
             beforeSetup.accept(server);
 
-            AuthConfig authConfig = registry.get(AuthConfig.class)
-                    .orElseThrow(() -> new IllegalStateException("AuthConfig not present in registry"));
-            server.minestomService().setup(authConfig.auth());
+            server.minestomService().setup(server.auth());
             afterSetup.accept(server);
 
             server.minestomService().run();
