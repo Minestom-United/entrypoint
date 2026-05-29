@@ -35,6 +35,6 @@ public class JsonFileConfigSource implements ConfigSource {
 
     @Override
     public int priority() {
-        return 10;
+        return 100;
     }
 }
