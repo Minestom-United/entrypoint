@@ -9,7 +9,9 @@ import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
 import dev.minestomunited.entrypoint.session.MemorySessionService;
 import dev.minestomunited.entrypoint.session.SessionService;
+import net.minestom.server.Auth;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class DemoServer extends AbstractMinestomServer {
 
@@ -50,5 +52,10 @@ public class DemoServer extends AbstractMinestomServer {
     @Override
     public @NotNull MinestomService<BasicNetworkPlayer> minestomService() {
         return minestomService;
+    }
+
+    @Override
+    public @NonNull Auth auth() {
+        return new Auth.Online();
     }
 }
