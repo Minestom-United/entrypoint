@@ -3,6 +3,7 @@ package dev.minestomunited.entrypoint.codec;
 import java.time.Duration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import net.minestom.server.codec.Codec;
 
 /**

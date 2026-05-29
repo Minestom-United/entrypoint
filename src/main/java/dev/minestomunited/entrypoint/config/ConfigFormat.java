@@ -3,6 +3,7 @@ package dev.minestomunited.entrypoint.config;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import org.jetbrains.annotations.Nullable;
 
 /**

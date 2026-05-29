@@ -1,7 +1,6 @@
 package dev.minestomunited.entrypoint.config.format;
 
 import com.google.gson.JsonParser;
-import dev.minestomunited.entrypoint.codec.CodecUtils;
 import dev.minestomunited.entrypoint.config.Config;
 import dev.minestomunited.entrypoint.config.ConfigFormat;
 import java.io.IOException;
