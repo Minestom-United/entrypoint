@@ -1,6 +1,7 @@
 package dev.minestomunited.entrypoint.codec;
 
 import java.time.Duration;
+
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -12,7 +13,7 @@ import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.PlayerSkin;
 
 @UtilityClass
-public final class ExtraCodecs {
+public final class CodecUtils {
     public static final Codec<Pos> POS = StructCodec.struct(
             "x", Codec.DOUBLE, Pos::x,
             "y", Codec.DOUBLE, Pos::y,
