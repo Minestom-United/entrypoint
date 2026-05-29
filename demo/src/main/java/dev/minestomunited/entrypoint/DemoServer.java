@@ -9,7 +9,7 @@ import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
 import dev.minestomunited.entrypoint.session.MemorySessionService;
 import dev.minestomunited.entrypoint.session.SessionService;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class DemoServer extends AbstractMinestomServer {
 
@@ -38,17 +38,17 @@ public class DemoServer extends AbstractMinestomServer {
     }
 
     @Override
-    public @NonNull SessionService sessionService() {
+    public @NotNull SessionService sessionService() {
         return sessionService;
     }
 
     @Override
-    public @NonNull PlayerService playerService() {
+    public @NotNull PlayerService playerService() {
         return playerService;
     }
 
     @Override
-    public @NonNull MinestomService<BasicNetworkPlayer> minestomService() {
+    public @NotNull MinestomService<BasicNetworkPlayer> minestomService() {
         return minestomService;
     }
 }

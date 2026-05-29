@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.util.Map;
 import net.minestom.server.codec.Codec;
 import net.minestom.server.codec.Transcoder;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class JsonCodecConfigFormat implements ConfigFormat {
     private final Map<Class<? extends Config>, Codec<? extends Config>> codecs;

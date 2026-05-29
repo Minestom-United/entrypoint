@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minestom.server.entity.PlayerSkin;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class MemorySessionService implements SessionService {
 

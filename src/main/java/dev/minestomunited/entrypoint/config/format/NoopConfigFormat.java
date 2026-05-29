@@ -4,7 +4,7 @@ import dev.minestomunited.entrypoint.config.Config;
 import dev.minestomunited.entrypoint.config.ConfigFormat;
 import java.io.InputStream;
 import java.io.OutputStream;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class NoopConfigFormat implements ConfigFormat {
 

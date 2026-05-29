@@ -1,4 +1,4 @@
-@NullMarked
+@NotNullByDefault
 package dev.minestomunited.entrypoint.session;
 
-import org.jspecify.annotations.NullMarked;
+import org.jetbrains.annotations.NotNullByDefault;
