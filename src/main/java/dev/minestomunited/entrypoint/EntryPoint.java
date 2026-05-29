@@ -53,7 +53,7 @@ public final class EntryPoint {
         /**
          * Override the config loader. Defaults to {@link BasicConfigLoader} if not set.
          */
-        public Builder<S> configLoader(ConfigLoader loader) {
+        public Builder<S> addConfigLoader(ConfigLoader loader) {
             this.configLoader = loader;
             return this;
         }
@@ -62,12 +62,12 @@ public final class EntryPoint {
          * Add a config format. Formats are applied in registration order;
          * later formats take priority over earlier ones on key conflicts.
          */
-        public Builder<S> configFormat(ConfigFormat format) {
+        public Builder<S> addConfigFormat(ConfigFormat format) {
             this.formats.add(format);
             return this;
         }
 
-        public Builder<S> configSource(ConfigSource source) {
+        public Builder<S> addConfigSource(ConfigSource source) {
             this.sources.add(source);
             return this;
         }
