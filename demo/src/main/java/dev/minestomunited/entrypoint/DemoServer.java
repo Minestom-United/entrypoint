@@ -11,7 +11,6 @@ import dev.minestomunited.entrypoint.session.MemorySessionService;
 import dev.minestomunited.entrypoint.session.SessionService;
 import net.minestom.server.Auth;
 import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.NonNull;
 
 public class DemoServer extends AbstractMinestomServer {
 
@@ -55,7 +54,7 @@ public class DemoServer extends AbstractMinestomServer {
     }
 
     @Override
-    public @NonNull Auth auth() {
+    public @NotNull Auth auth() {
         return new Auth.Online();
     }
 }
