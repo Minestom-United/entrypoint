@@ -1,7 +1,6 @@
 package dev.minestomunited.entrypoint.codec;
 
 import java.time.Duration;
-
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
