@@ -5,7 +5,7 @@ import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.registry.RegistryKey;
 import net.minestom.server.world.DimensionType;
 
-public abstract class AbstractWorld extends InstanceContainer implements World {
+public abstract class AbstractWorld extends InstanceContainer {
     public AbstractWorld(UUID uuid, RegistryKey<DimensionType> dimensionType) {
         super(uuid, dimensionType);
     }
