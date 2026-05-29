@@ -2,7 +2,6 @@ package dev.minestomunited.entrypoint.ipc;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * An abstract Request-Reply IPC paradigm specification
@@ -16,7 +15,7 @@ public interface RequestReply {
      * @param data    the data to send to the reply handler.
      * @return the future completed upon the reply of the handler.
      */
-    CompletableFuture<byte[]> request(@NotNull String channel, byte[] data);
+    CompletableFuture<byte[]> request(String channel, byte[] data);
 
     /**
      * Register a reply handler to reply to requests
@@ -26,5 +25,5 @@ public interface RequestReply {
      *                     empty, of the request. It should return a byte array as a response to the request.
      * @return the {@link Subscription} that can be used to cancel this handler
      */
-    Subscription registerReply(@NotNull String channel, Function<byte[], CompletableFuture<byte[]>> replyHandler);
+    Subscription registerReply(String channel, Function<byte[], CompletableFuture<byte[]>> replyHandler);
 }

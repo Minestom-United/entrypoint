@@ -19,7 +19,10 @@ public class JsonFileConfigSource implements ConfigSource {
 
     @Override
     public Optional<InputStream> read(String key) {
-        Path path = basePath.resolve(key.concat(".json"));
+        if (!key.endsWith(".json")) {
+            key = key + ".json";
+        }
+        Path path = basePath.resolve(key);
         if (Files.exists(path)) {
             try {
                 return Optional.of(Files.newInputStream(path));

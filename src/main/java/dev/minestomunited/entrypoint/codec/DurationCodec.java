@@ -5,6 +5,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.minestom.server.codec.Codec;
 
+/**
+ * Format: *s*m*h*d
+ * Example: 1d5h
+ * Example: 5m20s
+ */
 public class DurationCodec {
     public static final Codec<Duration> INSTANCE =
             Codec.STRING.transform(DurationCodec::deserialize, DurationCodec::serialize);
