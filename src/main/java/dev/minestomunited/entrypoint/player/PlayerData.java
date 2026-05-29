@@ -41,6 +41,14 @@ public interface PlayerData {
     String ip();
 
     /**
+     * The online player's proxy, null if not connected via proxy.
+     *
+     * @return the proxy id or null
+     */
+    @Nullable
+    String proxy();
+
+    /**
      * The online player's version.
      *
      * @return the version
