@@ -6,15 +6,10 @@ import java.io.InputStream;
 import java.util.Optional;
 
 public final class EnvironmentVariableConfigSource implements ConfigSource {
-    private final String prefix;
+    private static final String ENVIRONMENT_PREFIX = "MINESTOM_";
 
-    public EnvironmentVariableConfigSource(String prefix) {
-        this.prefix = prefix;
-    }
-
-    @Override
     public Optional<InputStream> read(String key) {
-        String value = System.getenv(prefix.concat(key.toUpperCase().replace('.', '_')));
+        String value = System.getenv(ENVIRONMENT_PREFIX + key.toUpperCase().replace('.', '_'));
 
         if (value == null) {
             return Optional.empty();
