@@ -2,6 +2,7 @@ package dev.minestomunited.entrypoint.ipc;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NonBlocking;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +17,7 @@ public interface PubSub {
      * @param channel The channel to publish to
      * @param data    the payload bytes to publish
      */
+    @Blocking
     void publish(@NotNull String channel, byte[] data);
 
     /**
