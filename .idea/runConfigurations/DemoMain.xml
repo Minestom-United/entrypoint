@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DemoMain" type="Application" factoryName="Application" nameIsGenerated="true">
+    <envs>
+      <env name="ENVIRONMENT" value="DEVELOPMENT" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="dev.minestomunited.entrypoint.DemoMain" />
+    <module name="entrypoint.demo.main" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="dev.minestomunited.entrypoint.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

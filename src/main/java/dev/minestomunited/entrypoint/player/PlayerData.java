@@ -1,6 +1,7 @@
 package dev.minestomunited.entrypoint.player;
 
 import java.util.UUID;
+import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.tag.Tag;
 import org.jetbrains.annotations.Nullable;
 

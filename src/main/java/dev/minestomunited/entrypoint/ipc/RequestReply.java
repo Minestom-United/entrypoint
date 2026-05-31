@@ -3,7 +3,6 @@ package dev.minestomunited.entrypoint.ipc;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import org.jetbrains.annotations.NonBlocking;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * An abstract Request-Reply IPC paradigm specification
@@ -18,7 +17,7 @@ public interface RequestReply {
      * @return the future completed upon the reply of the handler.
      */
     @NonBlocking
-    CompletableFuture<byte[]> request(@NotNull String channel, byte[] data);
+    CompletableFuture<byte[]> request(String channel, byte[] data);
 
     /**
      * Register a reply handler to reply to requests
@@ -29,5 +28,5 @@ public interface RequestReply {
      * @return the {@link Subscription} that can be used to cancel this handler
      */
     @NonBlocking
-    Subscription registerReply(@NotNull String channel, Function<byte[], CompletableFuture<byte[]>> replyHandler);
+    Subscription registerReply(String channel, Function<byte[], CompletableFuture<byte[]>> replyHandler);
 }

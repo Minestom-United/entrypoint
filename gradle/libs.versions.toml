@@ -1,9 +1,9 @@
 [versions]
-minestom = "2026.04.13-1.21.11"
-lombok = "9.2.0"
-shadow = "9.4.1"
-slf4j = "2.0.17"
-spotless = "6.25.0"
+minestom = "2026.05.17c-26.1.1"
+lombok = "9.5.0"
+shadow = "9.4.2"
+slf4j = "2.0.18"
+spotless = "8.6.0"
 
 [libraries]
 minestom = { module = "net.minestom:minestom", version.ref = "minestom" }

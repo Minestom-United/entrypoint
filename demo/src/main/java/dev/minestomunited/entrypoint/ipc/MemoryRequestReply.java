@@ -1,7 +1,5 @@
 package dev.minestomunited.entrypoint.ipc;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,7 +12,7 @@ public class MemoryRequestReply implements RequestReply {
     private final Map<String, Function<byte[], CompletableFuture<byte[]>>> handlers = new ConcurrentHashMap<>();
 
     @Override
-    public CompletableFuture<byte[]> request(@NotNull String channel, byte[] data) {
+    public CompletableFuture<byte[]> request(String channel, byte[] data) {
         Function<byte[], CompletableFuture<byte[]>> handler = handlers.get(channel);
 
         if (handler == null) {
@@ -29,7 +27,7 @@ public class MemoryRequestReply implements RequestReply {
     }
 
     @Override
-    public Subscription registerReply(@NotNull String channel, Function<byte[], CompletableFuture<byte[]>> handler) {
+    public Subscription registerReply(String channel, Function<byte[], CompletableFuture<byte[]>> handler) {
         if (handlers.putIfAbsent(channel, handler) != null) {
             throw new IllegalStateException("A handler is already registered on channel: " + channel);
         }

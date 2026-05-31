@@ -4,7 +4,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.NonBlocking;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * An abstract Pub-Sub ipc paradigm specification
@@ -18,7 +17,7 @@ public interface PubSub {
      * @param data    the payload bytes to publish
      */
     @Blocking
-    void publish(@NotNull String channel, byte[] data);
+    void publish(String channel, byte[] data);
 
     /**
      * Subscribe to a channel
@@ -28,7 +27,7 @@ public interface PubSub {
      * @return the {@link Subscription} that can be used to cancel this subscription
      */
     @NonBlocking
-    Subscription subscribe(@NotNull String channel, @NotNull Consumer<byte[]> consumer);
+    Subscription subscribe(String channel, Consumer<byte[]> consumer);
 
     /**
      * Subscribe to a pattern, or "glob" channel. Depending on the implementation, channels can support
@@ -41,5 +40,5 @@ public interface PubSub {
      * @return the {@link Subscription} that can be used to cancel this subscription
      */
     @NonBlocking
-    Subscription patternSubscribe(@NotNull String channel, @NotNull BiConsumer<String, byte[]> consumer);
+    Subscription patternSubscribe(String channel, BiConsumer<String, byte[]> consumer);
 }

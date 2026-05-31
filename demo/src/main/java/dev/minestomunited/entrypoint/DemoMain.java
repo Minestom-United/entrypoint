@@ -5,7 +5,9 @@ import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventNode;
+import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.server.ServerListPingEvent;
+import net.minestom.server.instance.Instance;
 import net.minestom.server.ping.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +19,7 @@ public class DemoMain {
     static void main(String[] args) {
         EntryPoint
                 .builder()
-                .register(DemoConfig.class, new DemoConfig("A Minestom Server", 100))
+                .registerConfig(DemoConfig.class, new DemoConfig("A Minestom Server", 100))
                 .onConfigLoaded(registry -> {
                     ServerConfig server = registry.get(ServerConfig.class).orElseThrow();
                     DemoConfig demo = registry.get(DemoConfig.class).orElseThrow();
@@ -31,9 +33,14 @@ public class DemoMain {
                     eventNode.addListener(ServerListPingEvent.class, event -> {
                         Status newStatus = Status.builder()
                                 .description(Component.text(demo.motd()))
-                                .playerInfo(MinecraftServer.getConnectionManager().getOnlinePlayerCount(), demo.maxPlayers())
+                                .playerInfo(MinecraftServer.getConnectionManager().getOnlinePlayerCount(),
+                                        demo.maxPlayers())
                                 .build();
                         event.setStatus(newStatus);
+                    });
+                    Instance instance = MinecraftServer.getInstanceManager().createInstanceContainer();
+                    eventNode.addListener(AsyncPlayerConfigurationEvent.class, event -> {
+                        event.setSpawningInstance(instance);
                     });
                 })
                 .run(args);
