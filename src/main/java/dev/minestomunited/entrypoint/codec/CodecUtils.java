@@ -1,6 +1,5 @@
 package dev.minestomunited.entrypoint.codec;
 
-import java.time.Duration;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -52,6 +51,4 @@ public final class CodecUtils {
 
     public static final Codec<NamedTextColor> NAMED_TEXT_COLOR =
             Codec.STRING.transform(NamedTextColor.NAMES::value, NamedTextColor::name);
-
-    public static final Codec<Duration> DURATION = DurationCodec.INSTANCE;
 }
