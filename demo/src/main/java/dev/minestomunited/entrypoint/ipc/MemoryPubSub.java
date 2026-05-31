@@ -8,7 +8,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.jetbrains.annotations.NonBlocking;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * An In-Memory implementation of a {@link PubSub} message broker.
@@ -19,7 +18,7 @@ public class MemoryPubSub implements PubSub {
     private final Map<String, List<BiConsumer<String, byte[]>>> patternSubscribers = new ConcurrentHashMap<>();
 
     @Override
-    public void publish(@NotNull String channel, byte[] data) {
+    public void publish(String channel, byte[] data) {
         subscribers.getOrDefault(channel, List.of()).forEach(consumer -> consumer.accept(data));
 
         patternSubscribers.forEach((pattern, consumers) -> {
@@ -31,7 +30,7 @@ public class MemoryPubSub implements PubSub {
 
     @Override
     @NonBlocking
-    public Subscription subscribe(@NotNull String channel, @NotNull Consumer<byte[]> consumer) {
+    public Subscription subscribe(String channel, Consumer<byte[]> consumer) {
         subscribers.computeIfAbsent(channel, _ -> new CopyOnWriteArrayList<>()).add(consumer);
         return () -> subscribers.getOrDefault(channel, new ArrayList<>()).remove(consumer);
     }
@@ -54,16 +53,16 @@ public class MemoryPubSub implements PubSub {
      */
     @Override
     @NonBlocking
-    public Subscription patternSubscribe(@NotNull String channel, @NotNull BiConsumer<String, byte[]> consumer) {
+    public Subscription patternSubscribe(String channel, BiConsumer<String, byte[]> consumer) {
         patternSubscribers.computeIfAbsent(channel, _ -> new CopyOnWriteArrayList<>()).add(consumer);
         return () -> patternSubscribers.getOrDefault(channel, new ArrayList<>()).remove(consumer);
     }
 
-    private boolean matchesPattern(@NotNull String pattern, @NotNull String channel) {
+    private boolean matchesPattern(String pattern, String channel) {
         return channel.matches(globToRegex(pattern));
     }
 
-    private String globToRegex(@NotNull String glob) {
+    private String globToRegex(String glob) {
         StringBuilder sb = new StringBuilder("^");
         for (int i = 0; i < glob.length(); i++) {
             char c = glob.charAt(i);

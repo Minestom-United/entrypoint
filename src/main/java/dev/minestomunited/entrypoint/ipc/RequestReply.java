@@ -1,9 +1,8 @@
 package dev.minestomunited.entrypoint.ipc;
 
-import org.jetbrains.annotations.NonBlocking;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
+import org.jetbrains.annotations.NonBlocking;
 
 /**
  * An abstract Request-Reply IPC paradigm specification

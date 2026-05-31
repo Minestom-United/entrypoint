@@ -1,10 +1,9 @@
 package dev.minestomunited.entrypoint.ipc;
 
-import org.jetbrains.annotations.Blocking;
-import org.jetbrains.annotations.NonBlocking;
-
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import org.jetbrains.annotations.Blocking;
+import org.jetbrains.annotations.NonBlocking;
 
 /**
  * An abstract Pub-Sub ipc paradigm specification
