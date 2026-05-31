@@ -1,4 +1,4 @@
-package dev.minestomunited.entrypoint.session;
+package dev.minestomunited.entrypoint;
 
 import dev.minestomunited.entrypoint.environment.SharedConstants;
 import java.time.Instant;
@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import dev.minestomunited.entrypoint.session.PlayerSession;
+import dev.minestomunited.entrypoint.session.SessionService;
 import net.minestom.server.entity.PlayerSkin;
 import org.jetbrains.annotations.Nullable;
 

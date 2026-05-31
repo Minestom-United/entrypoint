@@ -1,4 +1,7 @@
-package dev.minestomunited.entrypoint.player;
+package dev.minestomunited.entrypoint;
+
+import dev.minestomunited.entrypoint.player.PlayerData;
+import dev.minestomunited.entrypoint.player.PlayerService;
 
 import java.util.Map;
 import java.util.UUID;
