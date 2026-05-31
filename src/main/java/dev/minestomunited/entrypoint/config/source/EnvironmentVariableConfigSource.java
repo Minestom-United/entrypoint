@@ -20,6 +20,6 @@ public final class EnvironmentVariableConfigSource implements ConfigSource {
 
     @Override
     public int priority() {
-        return 10;
+        return 100;
     }
 }
