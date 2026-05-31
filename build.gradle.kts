@@ -16,7 +16,6 @@ repositories {
 
 dependencies {
     api(libs.minestom)
-    api(libs.minimessage)
     api(libs.logging.api)
 }
 
