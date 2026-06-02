@@ -70,7 +70,7 @@ public class MinestomPlayerService<P extends Player & NetworkPlayer> {
                                 playerId, player.getUsername(),
                                 player.getSkin(),
                                 player.getPlayerConnection().getRemoteAddress().toString(),
-                                "unknown", MinecraftServer.VERSION_NAME);
+                                null, MinecraftServer.VERSION_NAME);
                     }
                 })
         ;

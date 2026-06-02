@@ -29,6 +29,7 @@ public interface PlayerSession {
      *
      * @return the skin
      */
+    @Nullable
     PlayerSkin playerSkin();
 
     /**
@@ -54,10 +55,11 @@ public interface PlayerSession {
     String proxy();
 
     /**
-     * The id of the server the player is connected to.
+     * The id of the server the player is connected to, null if the player hasn't connected to a server yet.
      *
      * @return the server id
      */
+    @Nullable
     String serverId();
 
     /**
@@ -74,7 +76,7 @@ public interface PlayerSession {
             Instant createdAt,
             String clientIp,
             @Nullable String proxy,
-            String serverId,
+            @Nullable String serverId,
             String version) implements PlayerSession {
     }
 }

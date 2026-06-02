@@ -28,10 +28,11 @@ public interface PlayerData {
     String username();
 
     /**
-     * The online player's skin.
+     * The online player's skin, null if the player's skin is empty.
      *
      * @return the skin
      */
+    @Nullable
     PlayerSkin playerSkin();
 
     /**
@@ -59,10 +60,9 @@ public interface PlayerData {
     record Generic(
             UUID uuid,
             String username,
-            PlayerSkin playerSkin,
+            @Nullable PlayerSkin playerSkin,
             String ip,
-            @Nullable
-            String proxy,
+            @Nullable String proxy,
             String version
     ) implements PlayerData {
     }
