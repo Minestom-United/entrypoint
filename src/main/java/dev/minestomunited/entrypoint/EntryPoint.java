@@ -140,7 +140,7 @@ public final class EntryPoint {
             final long start = System.currentTimeMillis();
 
             ConfigLoader loader = (configLoader != null) ? configLoader : new BasicConfigLoader();
-            formats.forEach(loader::withFormat);
+            formats.forEach(loader::addFormat);
             sources.forEach(loader::addSource);
             registerDefaults(loader);
             loader.initialize(args);
