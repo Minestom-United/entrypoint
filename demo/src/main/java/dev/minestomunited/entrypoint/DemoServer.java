@@ -1,6 +1,6 @@
 package dev.minestomunited.entrypoint;
 
-import dev.minestomunited.entrypoint.config.ConfigRegistry;
+import dev.minestomunited.common.config.ConfigRegistry;
 import dev.minestomunited.entrypoint.minestom.BasicMinestomService;
 import dev.minestomunited.entrypoint.minestom.MinestomService;
 import dev.minestomunited.entrypoint.minestom.player.BasicNetworkPlayer;
@@ -22,8 +22,7 @@ public class DemoServer extends AbstractMinestomServer {
                 .orElseThrow(() -> new IllegalStateException("DemoConfig not loaded"));
         sessionService = new MemorySessionService();
         playerService = new MemoryPlayerService();
-        minestomService = new BasicMinestomService<>(
-                registry, sessionService, playerService, BasicNetworkPlayer::new);
+        minestomService = new BasicMinestomService<>(this, registry, sessionService, playerService, BasicNetworkPlayer::new);
     }
 
     /**
@@ -53,5 +52,10 @@ public class DemoServer extends AbstractMinestomServer {
     @Override
     public Auth auth() {
         return new Auth.Online();
+    }
+
+    @Override
+    public boolean isStandalone() {
+        return true;
     }
 }

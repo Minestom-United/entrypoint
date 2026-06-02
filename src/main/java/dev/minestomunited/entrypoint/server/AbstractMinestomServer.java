@@ -1,7 +1,8 @@
 package dev.minestomunited.entrypoint.server;
 
-import dev.minestomunited.entrypoint.config.Config;
-import dev.minestomunited.entrypoint.config.ConfigRegistry;
+import dev.minestomunited.common.config.Config;
+import dev.minestomunited.common.config.ConfigRegistry;
+
 import java.util.Optional;
 
 public abstract class AbstractMinestomServer implements MinestomServer {

@@ -1,6 +1,6 @@
 package dev.minestomunited.entrypoint.server;
 
-import dev.minestomunited.entrypoint.config.ConfigRegistry;
+import dev.minestomunited.common.config.ConfigRegistry;
 import dev.minestomunited.entrypoint.minestom.MinestomService;
 import dev.minestomunited.entrypoint.player.PlayerService;
 import dev.minestomunited.entrypoint.session.SessionService;
@@ -22,4 +22,6 @@ public interface MinestomServer {
     ConfigRegistry configRegistry();
 
     Auth auth();
+
+    boolean isStandalone();
 }

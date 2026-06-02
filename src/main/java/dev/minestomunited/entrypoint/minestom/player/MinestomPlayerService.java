@@ -2,9 +2,8 @@ package dev.minestomunited.entrypoint.minestom.player;
 
 import dev.minestomunited.entrypoint.player.PlayerData;
 import dev.minestomunited.entrypoint.player.PlayerService;
+import dev.minestomunited.entrypoint.server.MinestomServer;
 import dev.minestomunited.entrypoint.session.SessionService;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.Event;
@@ -16,6 +15,9 @@ import net.minestom.server.event.player.PlayerSpawnEvent;
 import net.minestom.server.network.player.GameProfile;
 import net.minestom.server.network.player.PlayerConnection;
 
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+
 public class MinestomPlayerService<P extends Player & NetworkPlayer> {
 
     /**
@@ -26,7 +28,7 @@ public class MinestomPlayerService<P extends Player & NetworkPlayer> {
      * @param playerService  the player service for loading and persisting player data
      * @param playerProvider factory that instantiates the typed player object per connection
      */
-    public MinestomPlayerService(EventNode<Event> eventNode, SessionService sessionService,
+    public MinestomPlayerService(MinestomServer server, EventNode<Event> eventNode, SessionService sessionService,
                                  PlayerService playerService, MinestomPlayerProvider<P> playerProvider) {
         eventNode
                 .addListener(PlayerDisconnectEvent.class, event -> {
@@ -63,11 +65,13 @@ public class MinestomPlayerService<P extends Player & NetworkPlayer> {
                     UUID playerId = player.getUuid();
                     // TODO - validate that player skin is set now? it may be set between configure and play state
                     // TODO - get proxy somehow? plugin messages?
-                    sessionService.createSession(
-                            playerId, player.getUsername(),
-                            player.getSkin(),
-                            player.getPlayerConnection().getRemoteAddress().toString(),
-                            "unknown", MinecraftServer.VERSION_NAME);
+                    if (server.isStandalone()) {
+                        sessionService.createSession(
+                                playerId, player.getUsername(),
+                                player.getSkin(),
+                                player.getPlayerConnection().getRemoteAddress().toString(),
+                                "unknown", MinecraftServer.VERSION_NAME);
+                    }
                 })
         ;
         MinecraftServer.getConnectionManager().setPlayerProvider(playerProvider::createPlayer);

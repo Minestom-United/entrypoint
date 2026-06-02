@@ -1,22 +1,18 @@
 package dev.minestomunited.entrypoint;
 
-import dev.minestomunited.entrypoint.config.BasicConfigLoader;
-import dev.minestomunited.entrypoint.config.Config;
-import dev.minestomunited.entrypoint.config.ConfigFormat;
-import dev.minestomunited.entrypoint.config.ConfigLoader;
-import dev.minestomunited.entrypoint.config.ConfigRegistry;
-import dev.minestomunited.entrypoint.config.ConfigSource;
-import dev.minestomunited.entrypoint.config.impl.ServerConfig;
+import dev.minestomunited.common.config.*;
+import dev.minestomunited.entrypoint.config.ServerConfig;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class EntryPoint {
 

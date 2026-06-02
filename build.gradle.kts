@@ -17,6 +17,7 @@ repositories {
 dependencies {
     api(libs.minestom)
     api(libs.logging.api)
+    api(libs.common.config)
 }
 
 java {
@@ -33,8 +34,8 @@ checkstyle {
 
 spotless {
     java {
-        // matches Checkstyle CustomImportOrder: STATIC###THIRD_PARTY_PACKAGE
-        importOrder("#", "")
+        // matches Checkstyle CustomImportOrder: STATIC###THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE
+        importOrder("\\#", "", "java", "javax")
         removeUnusedImports()
         trimTrailingWhitespace()
         endWithNewline()
@@ -47,9 +48,9 @@ publishing {
             name = "MinestomUnitedRepository"
             val isSnapshot = version.toString().endsWith("-SNAPSHOT")
             url = uri(
-                if (isSnapshot)
-                    "https://repo.minestom-united.dev/snapshots"
-                else "https://repo.minestom-united.dev/releases"
+                    if (isSnapshot)
+                        "https://repo.minestom-united.dev/snapshots"
+                    else "https://repo.minestom-united.dev/releases"
             )
 
             var u = System.getenv("REPO_USERNAME")
