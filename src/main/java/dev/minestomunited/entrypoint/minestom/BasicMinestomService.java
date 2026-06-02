@@ -12,15 +12,17 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventNode;
+import org.jetbrains.annotations.UnknownNullability;
 
 public class BasicMinestomService<P extends Player & NetworkPlayer> implements MinestomService<P> {
-
+    @UnknownNullability
     private MinecraftServer server = null;
     private final MinestomServer minestomServer;
     private final ConfigRegistry registry;
     private final MinestomPlayerService.MinestomPlayerProvider<P> playerProvider;
     private final SessionService sessionService;
     private final PlayerService playerService;
+    @UnknownNullability
     private MinestomPlayerService<P> minestomPlayerService = null;
 
     /**

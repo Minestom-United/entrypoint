@@ -2,6 +2,7 @@ package dev.minestomunited.entrypoint.session;
 
 import net.minestom.server.entity.PlayerSkin;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -29,6 +30,7 @@ public interface PlayerSession {
      *
      * @return the skin
      */
+    @Nullable
     PlayerSkin playerSkin();
 
     /**
@@ -54,10 +56,11 @@ public interface PlayerSession {
     String proxy();
 
     /**
-     * The id of the server the player is connected to.
+     * The id of the server the player is connected to, null if the player hasn't connected to a server yet.
      *
      * @return the server id
      */
+    @UnknownNullability
     String serverId();
 
     /**
@@ -74,7 +77,7 @@ public interface PlayerSession {
             Instant createdAt,
             String clientIp,
             @Nullable String proxy,
-            String serverId,
+            @UnknownNullability String serverId,
             String version) implements PlayerSession {
     }
 }
