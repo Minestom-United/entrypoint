@@ -23,10 +23,7 @@ public interface MinestomService<P extends Player & NetworkPlayer> {
      */
     void run();
 
-
     EventNode<Event> eventNode();
 
-
     MinestomPlayerService<P> playerService();
-
 }

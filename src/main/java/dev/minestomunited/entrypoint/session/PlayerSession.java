@@ -1,9 +1,10 @@
 package dev.minestomunited.entrypoint.session;
 
-import java.time.Instant;
-import java.util.UUID;
 import net.minestom.server.entity.PlayerSkin;
 import org.jetbrains.annotations.Nullable;
+
+import java.time.Instant;
+import java.util.UUID;
 
 /**
  * An online player's session.

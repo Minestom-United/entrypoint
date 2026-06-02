@@ -1,10 +1,11 @@
 package dev.minestomunited.entrypoint.minestom;
 
-import dev.minestomunited.entrypoint.config.ConfigRegistry;
-import dev.minestomunited.entrypoint.config.impl.ServerConfig;
+import dev.minestomunited.common.config.ConfigRegistry;
+import dev.minestomunited.entrypoint.config.ServerConfig;
 import dev.minestomunited.entrypoint.minestom.player.MinestomPlayerService;
 import dev.minestomunited.entrypoint.minestom.player.NetworkPlayer;
 import dev.minestomunited.entrypoint.player.PlayerService;
+import dev.minestomunited.entrypoint.server.MinestomServer;
 import dev.minestomunited.entrypoint.session.SessionService;
 import net.minestom.server.Auth;
 import net.minestom.server.MinecraftServer;
@@ -15,6 +16,7 @@ import net.minestom.server.event.EventNode;
 public class BasicMinestomService<P extends Player & NetworkPlayer> implements MinestomService<P> {
 
     private MinecraftServer server = null;
+    private final MinestomServer minestomServer;
     private final ConfigRegistry registry;
     private final MinestomPlayerService.MinestomPlayerProvider<P> playerProvider;
     private final SessionService sessionService;
@@ -30,10 +32,12 @@ public class BasicMinestomService<P extends Player & NetworkPlayer> implements M
      * @param playerProvider factory that instantiates the player object per connection
      */
     public BasicMinestomService(
+            MinestomServer minestomServer,
             ConfigRegistry registry,
             SessionService sessionService,
             PlayerService playerService,
             MinestomPlayerService.MinestomPlayerProvider<P> playerProvider) {
+        this.minestomServer = minestomServer;
         this.registry = registry;
         this.sessionService = sessionService;
         this.playerService = playerService;
@@ -46,7 +50,7 @@ public class BasicMinestomService<P extends Player & NetworkPlayer> implements M
             throw new IllegalStateException("server already setup");
         }
         server = MinecraftServer.init(auth);
-        minestomPlayerService = new MinestomPlayerService<>(eventNode(), sessionService, playerService, playerProvider);
+        minestomPlayerService = new MinestomPlayerService<>(minestomServer, eventNode(), sessionService, playerService, playerProvider);
     }
 
     @Override

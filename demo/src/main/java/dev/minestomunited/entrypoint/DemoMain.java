@@ -1,6 +1,6 @@
 package dev.minestomunited.entrypoint;
 
-import dev.minestomunited.entrypoint.config.impl.ServerConfig;
+import dev.minestomunited.entrypoint.config.ServerConfig;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.Event;
