@@ -61,6 +61,9 @@ public class MinestomPlayerService<P extends Player & NetworkPlayer> {
                     player.setTag(PlayerData.TAG, playerData);
                 })
                 .addListener(PlayerSpawnEvent.class, event -> {
+                    //let the player change instances without creating new session
+                    if (!event.isFirstSpawn()) return;
+
                     Player player = event.getPlayer();
                     UUID playerId = player.getUuid();
                     // TODO - validate that player skin is set now? it may be set between configure and play state
