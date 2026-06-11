@@ -4,13 +4,13 @@ lombok = "9.5.0"
 shadow = "9.4.2"
 slf4j = "2.0.18"
 spotless = "8.6.0"
-common-config = "0.0.1-SNAPSHOT"
+common-config = "0.0.2"
 
 [libraries]
 minestom = { module = "net.minestom:minestom", version.ref = "minestom" }
 logging-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 logging-impl = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
-common-config = { module = "dev.minestomunited.common:config", version.ref = "common-config" }
+common-config = { module = "dev.minestom-united.common:config", version.ref = "common-config" }
 
 [plugins]
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }

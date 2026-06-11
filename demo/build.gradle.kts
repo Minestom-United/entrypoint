@@ -5,13 +5,11 @@ plugins {
     application
 }
 
-group = "dev.minestomunited.entrypoint"
+group = "dev.minestom-united"
 version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven("https://repo.minestom-united.dev/releases")
-    maven("https://repo.minestom-united.dev/snapshots")
 }
 
 dependencies {
