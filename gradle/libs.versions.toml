@@ -3,7 +3,7 @@ minestom = "2026.05.17c-26.1.1"
 lombok = "9.5.0"
 shadow = "9.4.2"
 slf4j = "2.0.18"
-spotless = "8.6.0"
+spotless = "8.7.0"
 common-config = "0.0.1-SNAPSHOT"
 
 [libraries]
