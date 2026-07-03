@@ -5,7 +5,7 @@ plugins {
     checkstyle
     alias(libs.plugins.spotless)
     alias(libs.plugins.lombok)
-    id("com.vanniktech.maven.publish") version "0.36.0"
+    alias(libs.plugins.publishing)
 }
 
 group = "dev.minestom-united"

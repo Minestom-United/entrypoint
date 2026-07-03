@@ -1,10 +1,11 @@
 [versions]
-minestom = "2026.05.17c-26.1.1"
+minestom = "2026.07.01-26.1.2"
 lombok = "9.5.0"
-shadow = "9.4.2"
+shadow = "9.4.3"
 slf4j = "2.0.18"
-spotless = "8.6.0"
+spotless = "8.8.0"
 common-config = "0.0.1"
+publishing = "0.36.0"
 
 [libraries]
 minestom = { module = "net.minestom:minestom", version.ref = "minestom" }
@@ -16,4 +17,5 @@ common-config = { module = "dev.minestom-united.common:config", version.ref = "c
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+publishing = { id = "com.vanniktech.maven.publish", version.ref = "publishing" }
 
