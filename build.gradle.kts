@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "dev.minestom-united.entrypoint"
-version = "0.0.2"
+version = "0.0.3-SNAPSHOT"
 
 repositories {
     mavenCentral()
