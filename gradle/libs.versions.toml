@@ -4,6 +4,7 @@ lombok = "9.5.0"
 shadow = "9.6.1"
 slf4j = "2.0.18"
 spotless = "8.9.0"
+publishing = "0.37.0"
 common-config = "0.0.3"
 
 [libraries]
@@ -16,3 +17,4 @@ common-config = { module = "dev.minestom-united.common:config", version.ref = "c
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+publishing = { id = "com.vanniktech.maven.publish", version.ref = "publishing" }

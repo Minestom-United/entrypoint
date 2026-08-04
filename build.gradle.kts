@@ -5,10 +5,12 @@ plugins {
     checkstyle
     alias(libs.plugins.spotless)
     alias(libs.plugins.lombok)
+    alias(libs.plugins.publishing)
 }
 
 group = "dev.minestom-united.entrypoint"
-version = "0.0.3-SNAPSHOT"
+version = "0.0.3"
+description = "A lightweight abstraction over Minestom that streamlines server setup and reduces boilerplate for Minecraft server developers."
 
 repositories {
     mavenCentral()
@@ -23,7 +25,6 @@ dependencies {
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(25))
     withSourcesJar()
-    withJavadocJar()
 }
 
 checkstyle {
@@ -42,90 +43,50 @@ spotless {
     }
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "MinestomUnitedRepository"
-            val isSnapshot = version.toString().endsWith("-SNAPSHOT")
-            url = uri(
-                    if (isSnapshot)
-                        "https://repo.minestom-united.dev/snapshots"
-                    else "https://repo.minestom-united.dev/releases"
-            )
+mavenPublishing {
+    coordinates("dev.minestom-united.entrypoint", project.name, version as String?)
 
-            var u = System.getenv("REPO_USERNAME")
-            var p = System.getenv("REPO_PASSWORD")
+    publishToMavenCentral()
+    signAllPublications()
 
-            if (u == null || u.isEmpty()) {
-                u = "no-value-provided"
-            }
-            if (p == null || p.isEmpty()) {
-                p = "no-value-provided"
-            }
+    pom {
+        name = project.name
+        description = project.description
+        url = "https://github.com/Minestom-United/entrypoint"
 
-            val user = providers.gradleProperty("MinestomUnitedRepositoryUsername").orElse(u).get()
-            val pass = providers.gradleProperty("MinestomUnitedRepositoryPassword").orElse(p).get()
-
-            credentials {
-                username = user
-                password = pass
-            }
-            authentication {
-                create<BasicAuthentication>("basic") {
-
-                }
+        licenses {
+            license {
+                name = "MIT"
+                url = "https://github.com/Minestom-United/entrypoint/blob/master/LICENSE"
             }
         }
-    }
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = project.group.toString()
-            artifactId = project.name
-            version = project.version.toString()
-            from(components["java"])
 
-            pom {
-                name = this@create.artifactId
-                url = "https://github.com/Minestom-United/entrypoint"
-
-                licenses {
-                    license {
-                        name = "MIT"
-                        url = "https://github.com/Minestom-United/entrypoint/blob/master/LICENSE"
-                    }
-                }
-
-                developers {
-                    developer {
-                        id = "Foxikle"
-                    }
-
-                    developer {
-                        id = "TropicalShadow"
-                    }
-
-                    developer {
-                        id = "Webhead1104"
-                    }
-                }
-
-                issueManagement {
-                    system = "Github"
-                    url = "https://github.com/Minestom-United/entrypoint/issues"
-                }
-
-                scm {
-                    connection.set("scm:git:git://github.com/Minestom-United/entrypoint.git")
-                    developerConnection.set("scm:git:git@github.com:Minestom-United/entrypoint.git")
-                    url.set("https://github.com/Minestom-United/entrypoint")
-                    tag.set("HEAD")
-                }
-
-                ciManagement {
-                    system.set("Github Actions")
-                    url.set("https://github.com/Minestom-United/entrypoint/actions")
-                }
+        developers {
+            developer {
+                id = "Foxikle"
+                url = "https://github.com/Foxikle"
             }
+
+            developer {
+                id = "TropicalShadow"
+                url = "https://github.com/TropicalShadow"
+            }
+
+            developer {
+                id = "Webhead1104"
+                url = "https://github.com/Webhead1104"
+            }
+        }
+
+        issueManagement {
+            system = "Github"
+            url = "https://github.com/Minestom-United/entrypoint/issues"
+        }
+
+        scm {
+            url.set("https://github.com/Minestom-United/entrypoint")
+            connection.set("scm:git:git://github.com/Minestom-United/entrypoint.git")
+            developerConnection.set("scm:git:git@github.com:Minestom-United/entrypoint.git")
         }
     }
 }
