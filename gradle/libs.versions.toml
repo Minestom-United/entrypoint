@@ -16,4 +16,3 @@ common-config = { module = "dev.minestom-united.common:config", version.ref = "c
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-

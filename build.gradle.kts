@@ -7,13 +7,11 @@ plugins {
     alias(libs.plugins.lombok)
 }
 
-group = "dev.minestomunited.entrypoint"
-version = "0.0.1-SNAPSHOT"
+group = "dev.minestom-united.entrypoint"
+version = "0.0.2"
 
 repositories {
     mavenCentral()
-    maven("https://repo.minestom-united.dev/releases")
-    maven("https://repo.minestom-united.dev/snapshots")
 }
 
 dependencies {
