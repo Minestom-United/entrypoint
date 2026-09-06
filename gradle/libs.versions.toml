@@ -1,9 +1,9 @@
 [versions]
-minestom = "2026.07.22-26.2"
+minestom = "2026.08.16-26.2"
 lombok = "9.5.0"
 shadow = "9.6.1"
 slf4j = "2.0.18"
-spotless = "8.9.0"
+spotless = "8.10.0"
 common-config = "0.0.3"
 
 [libraries]
