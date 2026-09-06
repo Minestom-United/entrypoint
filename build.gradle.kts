@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "dev.minestom-united.entrypoint"
-version = "0.0.3"
+version = "0.0.4"
 description = "A lightweight abstraction over Minestom that streamlines server setup and reduces boilerplate for Minecraft server developers."
 
 repositories {
