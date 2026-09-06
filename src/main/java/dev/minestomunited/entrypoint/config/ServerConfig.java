@@ -1,7 +1,8 @@
 package dev.minestomunited.entrypoint.config;
 
 import dev.minestomunited.common.config.Config;
-import dev.minestomunited.common.config.ConfigFile;import net.minestom.server.codec.Codec;import net.minestom.server.codec.StructCodec;
+import dev.minestomunited.common.config.ConfigFile;
+import net.minestom.server.codec.Codec;import net.minestom.server.codec.StructCodec;
 
 @ConfigFile("server")
 public record ServerConfig(
