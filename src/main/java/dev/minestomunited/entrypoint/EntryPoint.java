@@ -1,6 +1,7 @@
 package dev.minestomunited.entrypoint;
 
 import dev.minestomunited.common.config.*;
+import dev.minestomunited.common.config.format.JsonCodecConfigFormat;
 import dev.minestomunited.entrypoint.config.ServerConfig;
 import dev.minestomunited.entrypoint.server.AbstractMinestomServer;
 import org.jetbrains.annotations.Nullable;
@@ -65,6 +66,16 @@ public final class EntryPoint {
 
         public Builder<S> addConfigSource(ConfigSource source) {
             this.sources.add(source);
+            return this;
+        }
+
+        /**
+         * Add the default formats for Entrypoint's configurations (eg: ServerConfig).
+         */
+        public Builder<S> addDefaultFormats() {
+            this.formats.add(new JsonCodecConfigFormat(
+                    Map.of(ServerConfig.class, ServerConfig.CODEC))
+            );
             return this;
         }
 
